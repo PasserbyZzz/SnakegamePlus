@@ -35,8 +35,10 @@
 	<wchar.h>
 	<stdbool.h>
 
-1720528109 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
+1720532217 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
 	"game.h"
+	"curses.h"
 	<string>
 	<iostream>
+	<cstring>
 
