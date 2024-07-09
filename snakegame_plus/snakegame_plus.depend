@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1720505026 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake.h"
+
+1720505026 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.h
+	<vector>
+
+1720505026 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<chrono>
+	<thread>
+	<fstream>
+	<algorithm>
+	"game.h"
+
+1720525426 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	"snake.h"
+
+1655723618 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\curses.h
+	<stdarg.h>
+	<stddef.h>
+	<stdio.h>
+	<wchar.h>
+	<stdbool.h>
+
+1720505026 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
+	"game.h"
+
