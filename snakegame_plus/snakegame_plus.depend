@@ -9,21 +9,23 @@
 1720505026 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.h
 	<vector>
 
-1720505026 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
+1720528220 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
 	<string>
 	<iostream>
 	<cmath>
+	<string>
 	<chrono>
 	<thread>
 	<fstream>
 	<algorithm>
 	"game.h"
 
-1720525426 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
+1720527460 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
 	"curses.h"
 	<string>
 	<vector>
 	<memory>
+	<string>
 	"snake.h"
 
 1655723618 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\curses.h
@@ -33,6 +35,8 @@
 	<wchar.h>
 	<stdbool.h>
 
-1720505026 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
+1720528109 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
 	"game.h"
+	<string>
+	<iostream>
 

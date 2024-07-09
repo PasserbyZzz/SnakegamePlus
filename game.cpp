@@ -1,15 +1,18 @@
 #include <string>
 #include <iostream>
-#include <cmath> 
+#include <cmath>
+#include <string>
 
 // For terminal delay
 #include <chrono>
 #include <thread>
 
 #include <fstream>
-#include <algorithm> 
+#include <algorithm>
 
 #include "game.h"
+
+using namespace std;
 
 Game::Game()
 {
@@ -55,10 +58,11 @@ void Game::createInformationBoard()
 
 void Game::renderInformationBoard() const
 {
-    mvwprintw(this->mWindows[0], 1, 1, "Welcome to The Snake Game!");
-    mvwprintw(this->mWindows[0], 2, 1, "Author: Lei Mao");
-    mvwprintw(this->mWindows[0], 3, 1, "Website: https://github.com/leimao/");
-    mvwprintw(this->mWindows[0], 4, 1, "Implemented using C++ and libncurses library.");
+    string name =  this->mName + "!";
+    mvwprintw(this->mWindows[0], 1, 1, "Welcome to The Snake Game,");
+    mvwprintw(this->mWindows[0], 2, 1, name.c_str());
+    mvwprintw(this->mWindows[0], 3, 1, "Website: https://github.com/PasserbyZzz/SnakegamePlus");
+    mvwprintw(this->mWindows[0], 4, 1, "Team Members: DZX, QJC and XKY");
     wrefresh(this->mWindows[0]);
 }
 
@@ -99,7 +103,7 @@ void Game::renderInstructionBoard() const
 
 void Game::renderLeaderBoard() const
 {
-    // If there is not too much space, skip rendering the leader board 
+    // If there is not too much space, skip rendering the leader board
     if (this->mScreenHeight - this->mInformationHeight - 14 - 2 < 3 * 2)
     {
         return;
@@ -189,7 +193,7 @@ bool Game::renderRestartMenu() const
     {
         return false;
     }
-    
+
 }
 
 void Game::renderPoints() const
@@ -333,7 +337,7 @@ void Game::runGame()
         this->controlSnake();
         werase(this->mWindows[1]);
         box(this->mWindows[1], 0, 0);
-        
+
         bool eatFood = this->mPtrSnake->moveFoward();
         bool collision = this->mPtrSnake->checkCollision();
         if (collision == true)
@@ -359,8 +363,7 @@ void Game::runGame()
 }
 
 void Game::startGame()
-{
-    refresh();
+{   refresh();
     bool choice;
     while (true)
     {
@@ -430,6 +433,11 @@ bool Game::writeLeaderBoard()
     }
     fhand.close();
     return true;
+}
+
+void Game::setName(string name)
+{
+    this->mName = name;
 }
 
 

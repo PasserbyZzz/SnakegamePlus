@@ -5,9 +5,11 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <string>
 
 #include "snake.h"
 
+using namespace std;
 
 class Game
 {
@@ -47,6 +49,8 @@ public:
     bool renderRestartMenu() const;
     void adjustDelay();
 
+    void setName(string name);
+
 
 private:
     // We need to have two windows
@@ -73,6 +77,8 @@ private:
     const std::string mRecordBoardFilePath = "record.dat";
     std::vector<int> mLeaderBoard;
     const int mNumLeaders = 3;
+
+    string mName;
 };
 
 #endif
