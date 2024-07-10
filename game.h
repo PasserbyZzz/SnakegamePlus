@@ -29,8 +29,10 @@ public:
 		void loadLeadBoard();
     void updateLeadBoard();
     bool readLeaderBoard();
+    bool readNameBoard();
     bool updateLeaderBoard();
     bool writeLeaderBoard();
+    bool writeNameBoard();
     void renderLeaderBoard() const;
 
 		void renderBoards() const;
@@ -74,8 +76,10 @@ private:
     int mDifficulty = 0;
     int mBaseDelay = 100;
     int mDelay;
-    const std::string mRecordBoardFilePath = "record.dat";
+    const std::string mRecordBoardFilePath = "point_record.dat";
+    const std::string mNameBoardFilePath = "name_record.dat";
     std::vector<int> mLeaderBoard;
+    std::vector<string> mNameBoard;
     const int mNumLeaders = 3;
 
     string mName;

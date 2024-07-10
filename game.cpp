@@ -38,6 +38,7 @@ Game::Game()
 
     // Initialize the leader board to be all zeros
     this->mLeaderBoard.assign(this->mNumLeaders, 0);
+    this->mNameBoard.assign(this->mNumLeaders, "None");
 }
 
 Game::~Game()
@@ -109,14 +110,15 @@ void Game::renderLeaderBoard() const
         return;
     }
     mvwprintw(this->mWindows[2], 14, 1, "Leader Board");
-    std::string pointString;
+    std::string pointnameString;
     std::string rank;
     for (int i = 0; i < std::min(this->mNumLeaders, this->mScreenHeight - this->mInformationHeight - 14 - 2); i ++)
     {
-        pointString = std::to_string(this->mLeaderBoard[i]);
+        pointnameString = std::to_string(this->mLeaderBoard[i]) + " --" + this->mNameBoard[i];
+        //pointString = std::to_string(this->mLeaderBoard[i]);
         rank = "#" + std::to_string(i + 1) + ":";
         mvwprintw(this->mWindows[2], 14 + (i + 1), 1, rank.c_str());
-        mvwprintw(this->mWindows[2], 14 + (i + 1), 5, pointString.c_str());
+        mvwprintw(this->mWindows[2], 14 + (i + 1), 5, pointnameString.c_str());
     }
     wrefresh(this->mWindows[2]);
 }
@@ -368,11 +370,13 @@ void Game::startGame()
     while (true)
     {
         this->readLeaderBoard();
+        this->readNameBoard();
         this->renderBoards();
         this->initializeGame();
         this->runGame();
         this->updateLeaderBoard();
         this->writeLeaderBoard();
+        this->writeNameBoard();
         choice = this->renderRestartMenu();
         if (choice == false)
         {
@@ -401,10 +405,37 @@ bool Game::readLeaderBoard()
     return true;
 }
 
+bool Game::readNameBoard()
+{
+    std::fstream fhand(this->mNameBoardFilePath, std::ios::binary | std::ios::in);
+    if (!fhand.is_open())
+    {
+        return false;
+    }
+
+    int i = 0;
+    while (i < mNumLeaders && fhand)
+    {
+        size_t length;
+        fhand.read(reinterpret_cast<char*>(&length), sizeof(length));
+        if (fhand.eof()) break; // 防止文件末尾多读一次
+
+        std::string temp(length, '\0');
+        fhand.read(&temp[0], length);
+
+        this->mNameBoard[i] = temp;
+        i++;
+    }
+
+    fhand.close();
+    return true;
+}
+
 bool Game::updateLeaderBoard()
 {
     bool updated = false;
     int newScore = this->mPoints;
+    string newName = this->mName;
     for (int i = 0; i < this->mNumLeaders; i ++)
     {
         if (this->mLeaderBoard[i] >= this->mPoints)
@@ -412,8 +443,11 @@ bool Game::updateLeaderBoard()
             continue;
         }
         int oldScore = this->mLeaderBoard[i];
+        string oldName = this->mNameBoard[i];
         this->mLeaderBoard[i] = newScore;
+        this->mNameBoard[i] = newName;
         newScore = oldScore;
+        newName = oldName;
         updated = true;
     }
     return updated;
@@ -435,15 +469,27 @@ bool Game::writeLeaderBoard()
     return true;
 }
 
+bool Game::writeNameBoard()
+{
+    // trunc: clear the data file
+    std::fstream fhand(this->mNameBoardFilePath, std::ios::binary | std::ios::trunc | std::ios::out);
+    if (!fhand.is_open())
+    {
+        return false;
+    }
+    for (int i = 0; i < this->mNumLeaders; i++)
+    {
+        // 写入字符串长度
+        size_t length = this->mNameBoard[i].size();
+        fhand.write(reinterpret_cast<const char*>(&length), sizeof(length));
+        // 写入字符串内容
+        fhand.write(this->mNameBoard[i].c_str(), length);
+    }
+    fhand.close();
+    return true;
+}
+
 void Game::setName(string name)
 {
     this->mName = name;
 }
-
-
-
-
-
-
-
-
