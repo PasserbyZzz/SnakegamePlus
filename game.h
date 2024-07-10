@@ -45,10 +45,11 @@ public:
 		void createRamdonFood();
     void renderFood() const;
     void renderSnake() const;
-    void controlSnake() const;
+    bool controlSnake() const;
 
 		void startGame();
     bool renderRestartMenu() const;
+    bool renderPauseMenu() const;
     void adjustDelay();
 
     void setName(string name);

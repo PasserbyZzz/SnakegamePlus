@@ -115,7 +115,6 @@ void Game::renderLeaderBoard() const
     for (int i = 0; i < std::min(this->mNumLeaders, this->mScreenHeight - this->mInformationHeight - 14 - 2); i ++)
     {
         pointnameString = std::to_string(this->mLeaderBoard[i]) + " --" + this->mNameBoard[i];
-        //pointString = std::to_string(this->mLeaderBoard[i]);
         rank = "#" + std::to_string(i + 1) + ":";
         mvwprintw(this->mWindows[2], 14 + (i + 1), 1, rank.c_str());
         mvwprintw(this->mWindows[2], 14 + (i + 1), 5, pointnameString.c_str());
@@ -140,6 +139,82 @@ bool Game::renderRestartMenu() const
     mvwprintw(menu, 1, 1, "Your Final Score:");
     std::string pointString = std::to_string(this->mPoints);
     mvwprintw(menu, 2, 1, pointString.c_str());
+    wattron(menu, A_STANDOUT);
+    mvwprintw(menu, 0 + offset, 1, menuItems[0].c_str());
+    wattroff(menu, A_STANDOUT);
+    mvwprintw(menu, 1 + offset, 1, menuItems[1].c_str());
+
+    wrefresh(menu);
+
+    int key;
+    while (true)
+    {
+        key = getch();
+        switch(key)
+        {
+            case 'W':
+            case 'w':
+            case KEY_UP:
+            {
+                mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
+                index --;
+                index = (index < 0) ? menuItems.size() - 1 : index;
+                wattron(menu, A_STANDOUT);
+                mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
+                wattroff(menu, A_STANDOUT);
+                break;
+            }
+            case 'S':
+            case 's':
+            case KEY_DOWN:
+            {
+                mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
+                index ++;
+                index = (index > menuItems.size() - 1) ? 0 : index;
+                wattron(menu, A_STANDOUT);
+                mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
+                wattroff(menu, A_STANDOUT);
+                break;
+            }
+        }
+        wrefresh(menu);
+        if (key == ' ' || key == 10)
+        {
+            break;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+    delwin(menu);
+
+    if (index == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+bool Game::renderPauseMenu() const
+{
+    WINDOW * menu;
+    int width = this->mGameBoardWidth * 0.5;
+    int height = this->mGameBoardHeight * 0.5;
+    int startX = this->mGameBoardWidth * 0.25;
+    int startY = this->mGameBoardHeight * 0.25 + this->mInformationHeight;
+
+    menu = newwin(height, width, startY, startX);
+    box(menu, 0, 0);
+    std::vector<std::string> menuItems = {"Continue", "Quit"};
+
+    int index = 0;
+    int offset = 4;
+    mvwprintw(menu, 1, 1, "Game Paused!");
+    mvwprintw(menu, 2, 1, "Your Score Now:");
+    std::string pointString = std::to_string(this->mPoints);
+    mvwprintw(menu, 3, 1, pointString.c_str());
     wattron(menu, A_STANDOUT);
     mvwprintw(menu, 0 + offset, 1, menuItems[0].c_str());
     wattroff(menu, A_STANDOUT);
@@ -262,7 +337,7 @@ void Game::renderSnake() const
     wrefresh(this->mWindows[1]);
 }
 
-void Game::controlSnake() const
+bool Game::controlSnake() const
 {
     int key;
     key = getch();
@@ -296,11 +371,17 @@ void Game::controlSnake() const
             this->mPtrSnake->changeDirection(Direction::Right);
             break;
         }
+        case ' ':
+        {
+            return false;
+            break;
+        }
         default:
         {
             break;
         }
     }
+    return true;
 }
 
 void Game::renderBoards() const
@@ -334,9 +415,17 @@ void Game::runGame()
 {
     bool moveSuccess;
     int key;
+    action:
+    int suspend = 0;
+
     while (true)
     {
-        this->controlSnake();
+        bool x = this->controlSnake();
+        if (!x)
+        {
+            suspend = 1;
+            break;
+        }
         werase(this->mWindows[1]);
         box(this->mWindows[1], 0, 0);
 
@@ -361,6 +450,21 @@ void Game::runGame()
         std::this_thread::sleep_for(std::chrono::milliseconds(this->mDelay));
 
         refresh();
+    }
+    if (suspend == 1)
+    {
+        while (true)
+        {
+            this->renderSnake();
+            this->renderFood();
+            this->renderDifficulty();
+            this->renderPoints();
+            bool y = this->renderPauseMenu();
+            if(y)
+                goto action;
+            else
+                break;
+        }
     }
 }
 
