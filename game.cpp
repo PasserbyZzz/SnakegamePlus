@@ -14,6 +14,7 @@
 
 using namespace std;
 
+//构造函数
 Game::Game()
 {
     // Separate the screen to three windows
@@ -41,6 +42,7 @@ Game::Game()
     this->mNameBoard.assign(this->mNumLeaders, "None");
 }
 
+//析构函数
 Game::~Game()
 {
     for (int i = 0; i < this->mWindows.size(); i ++)
@@ -50,6 +52,7 @@ Game::~Game()
     endwin();
 }
 
+//创建简介栏
 void Game::createInformationBoard()
 {
     int startY = 0;
@@ -57,6 +60,7 @@ void Game::createInformationBoard()
     this->mWindows[0] = newwin(this->mInformationHeight, this->mScreenWidth, startY, startX);
 }
 
+//显示简介
 void Game::renderInformationBoard() const
 {
     string name =  this->mName + "!";
@@ -67,6 +71,7 @@ void Game::renderInformationBoard() const
     wrefresh(this->mWindows[0]);
 }
 
+//创建游戏栏
 void Game::createGameBoard()
 {
     int startY = this->mInformationHeight;
@@ -74,11 +79,13 @@ void Game::createGameBoard()
     this->mWindows[1] = newwin(this->mScreenHeight - this->mInformationHeight, this->mScreenWidth - this->mInstructionWidth, startY, startX);
 }
 
+//显示游戏界面
 void Game::renderGameBoard() const
 {
     wrefresh(this->mWindows[1]);
 }
 
+//创建提示栏
 void Game::createInstructionBoard()
 {
     int startY = this->mInformationHeight;
@@ -86,6 +93,7 @@ void Game::createInstructionBoard()
     this->mWindows[2] = newwin(this->mScreenHeight - this->mInformationHeight, this->mInstructionWidth, startY, startX);
 }
 
+//显示提示
 void Game::renderInstructionBoard() const
 {
     mvwprintw(this->mWindows[2], 1, 1, "Manual");
@@ -101,7 +109,7 @@ void Game::renderInstructionBoard() const
     wrefresh(this->mWindows[2]);
 }
 
-
+//显示排行榜
 void Game::renderLeaderBoard() const
 {
     // If there is not too much space, skip rendering the leader board
@@ -122,6 +130,7 @@ void Game::renderLeaderBoard() const
     wrefresh(this->mWindows[2]);
 }
 
+//游戏结束后，让用户选择Restart还是Quit
 bool Game::renderRestartMenu() const
 {
     WINDOW * menu;
@@ -197,6 +206,7 @@ bool Game::renderRestartMenu() const
 
 }
 
+//游戏暂停后，让用户选择Continue还是Quit
 bool Game::renderPauseMenu() const
 {
     WINDOW * menu;
@@ -273,6 +283,7 @@ bool Game::renderPauseMenu() const
 
 }
 
+//修改分数，并显示在提示栏
 void Game::renderPoints() const
 {
     std::string pointString = std::to_string(this->mPoints);
@@ -280,6 +291,7 @@ void Game::renderPoints() const
     wrefresh(this->mWindows[2]);
 }
 
+//修改难度，并显示在提示栏
 void Game::renderDifficulty() const
 {
     std::string difficultyString = std::to_string(this->mDifficulty);
@@ -287,6 +299,7 @@ void Game::renderDifficulty() const
     wrefresh(this->mWindows[2]);
 }
 
+//初始化游戏界面
 void Game::initializeGame()
 {
     this->mPtrSnake.reset(new Snake(this->mGameBoardWidth, this->mGameBoardHeight, this->mInitialSnakeLength));
@@ -297,6 +310,7 @@ void Game::initializeGame()
     this->mDelay = this->mBaseDelay;
 }
 
+//随机生成食物
 void Game::createRamdonFood()
 {
     std::vector<SnakeBody> availableGrids;
@@ -320,12 +334,14 @@ void Game::createRamdonFood()
     this->mFood = availableGrids[random_idx];
 }
 
+//显示食物
 void Game::renderFood() const
 {
     mvwaddch(this->mWindows[1], this->mFood.getY(), this->mFood.getX(), this->mFoodSymbol);
     wrefresh(this->mWindows[1]);
 }
 
+//显示蛇
 void Game::renderSnake() const
 {
     int snakeLength = this->mPtrSnake->getLength();
@@ -337,6 +353,7 @@ void Game::renderSnake() const
     wrefresh(this->mWindows[1]);
 }
 
+//玩家通过键盘控制蛇的移动方向
 bool Game::controlSnake() const
 {
     int key;
@@ -384,6 +401,7 @@ bool Game::controlSnake() const
     return true;
 }
 
+//刷新窗口 绘制三个窗口
 void Game::renderBoards() const
 {
     for (int i = 0; i < this->mWindows.size(); i ++)
@@ -401,7 +419,7 @@ void Game::renderBoards() const
     this->renderLeaderBoard();
 }
 
-
+//改变游戏难度，每得5分难度+1；分数被5整除的时候游戏加速
 void Game::adjustDelay()
 {
     this->mDifficulty = this->mPoints / 5;
@@ -411,6 +429,7 @@ void Game::adjustDelay()
     }
 }
 
+//运行游戏
 void Game::runGame()
 {
     bool moveSuccess;
@@ -468,6 +487,7 @@ void Game::runGame()
     }
 }
 
+//开始游戏
 void Game::startGame()
 {   refresh();
     bool choice;
@@ -489,6 +509,7 @@ void Game::startGame()
     }
 }
 
+//读取历史分数排行
 // https://en.cppreference.com/w/cpp/io/basic_fstream
 bool Game::readLeaderBoard()
 {
@@ -509,6 +530,7 @@ bool Game::readLeaderBoard()
     return true;
 }
 
+//读取玩家名单
 bool Game::readNameBoard()
 {
     std::fstream fhand(this->mNameBoardFilePath, std::ios::binary | std::ios::in);
@@ -535,6 +557,7 @@ bool Game::readNameBoard()
     return true;
 }
 
+//更新排行榜
 bool Game::updateLeaderBoard()
 {
     bool updated = false;
@@ -557,6 +580,7 @@ bool Game::updateLeaderBoard()
     return updated;
 }
 
+//写入历史分数排行
 bool Game::writeLeaderBoard()
 {
     // trunc: clear the data file
@@ -573,6 +597,7 @@ bool Game::writeLeaderBoard()
     return true;
 }
 
+//写入玩家名单
 bool Game::writeNameBoard()
 {
     // trunc: clear the data file
@@ -593,6 +618,7 @@ bool Game::writeNameBoard()
     return true;
 }
 
+//设置玩家姓名
 void Game::setName(string name)
 {
     this->mName = name;
