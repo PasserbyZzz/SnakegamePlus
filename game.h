@@ -73,6 +73,7 @@ private:
     // Food information
     SnakeBody mFood;
     const char mFoodSymbol = '#';
+
     int mPoints = 0;
     int mDifficulty = 0;
     int mBaseDelay = 100;
@@ -84,6 +85,7 @@ private:
     const int mNumLeaders = 3;
 
     string mName;
+    int mCnt = 0;
 };
 
 #endif

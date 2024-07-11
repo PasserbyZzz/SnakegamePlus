@@ -79,7 +79,7 @@ void Game::createGameBoard()
     this->mWindows[1] = newwin(this->mScreenHeight - this->mInformationHeight, this->mScreenWidth - this->mInstructionWidth, startY, startX);
 }
 
-//显示游戏界面
+//显示游戏窗口
 void Game::renderGameBoard() const
 {
     wrefresh(this->mWindows[1]);
@@ -433,7 +433,7 @@ void Game::adjustDelay()
 void Game::runGame()
 {
     bool moveSuccess;
-    int key;
+    //int key;
     action:
     int suspend = 0;
 
@@ -458,6 +458,7 @@ void Game::runGame()
         if (eatFood == true)
         {
             this->mPoints += 1;
+            this->mCnt = 0;
             this->createRamdonFood();
             this->mPtrSnake->senseFood(this->mFood);
             this->adjustDelay();
@@ -465,6 +466,13 @@ void Game::runGame()
         this->renderFood();
         this->renderDifficulty();
         this->renderPoints();
+
+        this->mCnt ++;
+        if (this->mCnt > (80 / sqrt(this->mDifficulty + 1)) ) {
+            this->createRamdonFood();
+            this->mCnt = 0;
+            this->mPtrSnake->senseFood(this->mFood);
+        }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(this->mDelay));
 
