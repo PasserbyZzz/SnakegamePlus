@@ -17,16 +17,16 @@ public:
     Game();
     ~Game();
 
-		void createInformationBoard();
+    void createInformationBoard();
     void renderInformationBoard() const;
 
     void createGameBoard();
     void renderGameBoard() const;
 
-		void createInstructionBoard();
+    void createInstructionBoard();
     void renderInstructionBoard() const;
 
-		void loadLeadBoard();
+    void loadLeadBoard();
     void updateLeadBoard();
     bool readLeaderBoard();
     bool readNameBoard();
@@ -35,20 +35,22 @@ public:
     bool writeNameBoard();
     void renderLeaderBoard() const;
 
-		void renderBoards() const;
+    void renderBoards() const;
 
-		void initializeGame();
+    void initializeGame();
     void runGame();
     void renderPoints() const;
     void renderDifficulty() const;
 
-		void createRamdonFood();
+    void createRamdonFood();
+    void createRandomGate();
     void renderFood_first() const;
     void renderFood_final() const;
     void renderSnake() const;
+    void renderGate() const;
     bool controlSnake() const;
 
-		void startGame();
+    void startGame();
     bool renderRestartMenu() const;
     bool renderPauseMenu() const;
     void adjustDelay();
@@ -73,8 +75,10 @@ private:
     std::unique_ptr<Snake> mPtrSnake;
     // Food information
     SnakeBody mFood;
+    SnakeBody Gate[2];
     const char mFoodSymbol_first = '#';
     const char mFoodSymbol_final = ' ';
+    const char mGateSymbol = 'O';
     int mPoints = 0;
     int mDifficulty = 0;
     int mBaseDelay = 100;

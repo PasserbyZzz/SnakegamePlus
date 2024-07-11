@@ -133,22 +133,36 @@ bool Snake::hitSelf()
 }
 
 
-bool Snake::touchFood()
+int Snake::touchThing()
 {
     SnakeBody newHead = this->createNewHead();
     if (this->mFood == newHead)
     {
-        return true;
+        return 1;
+    }
+    else if (this->Gate[0] == newHead)
+    {
+        return 2;
+    }
+    else if (this->Gate[1] == newHead)
+    {
+        return 3;
     }
     else
     {
-        return false;
+        return 0;
     }
 }
 
 void Snake::senseFood(SnakeBody food)
 {
     this->mFood = food;
+}
+
+void Snake::senseGate(SnakeBody ga1, SnakeBody ga2)
+{
+    this->Gate[0]=ga1;
+    this->Gate[1]=ga2;
 }
 
 std::vector<SnakeBody>& Snake::getSnake()
@@ -213,45 +227,23 @@ bool Snake::changeDirection(Direction newDirection)
     return false;
 }
 
-
 SnakeBody Snake::createNewHead()
 {
-    SnakeBody& head = this->mSnake[0];
-    int headX = head.getX();
-    int headY = head.getY();
-    int headXNext;
-    int headYNext;
+    SnakeBody a = this->mSnake[0];
+    int x = a.getX();
+    int y = a.getY();
+    Direction b = this->mDirection;
 
-    switch (this->mDirection)
-    {
-        case Direction::Up:
-        {
-            headXNext = headX;
-            headYNext = headY - 1;
-            break;
-        }
-        case Direction::Down:
-        {
-            headXNext = headX;
-            headYNext = headY + 1;
-            break;
-        }
-        case Direction::Left:
-        {
-            headXNext = headX - 1;
-            headYNext = headY;
-            break;
-        }
-        case Direction::Right:
-        {
-            headXNext = headX + 1;
-            headYNext = headY;
-            break;
-        }
-    }
+    if (b == Direction::Down)
+        this->mSnake.insert(mSnake.begin(),SnakeBody(x, y + 1));
+    else if (b == Direction::Left)
+        this->mSnake.insert(mSnake.begin(),SnakeBody(x - 1, y));
+    else if (b == Direction::Right)
+        this->mSnake.insert(mSnake.begin(),SnakeBody(x + 1, y));
+    else
+        this->mSnake.insert(mSnake.begin(),SnakeBody(x, y - 1));
 
-    SnakeBody newHead = SnakeBody(headXNext, headYNext);
-
+    SnakeBody newHead = this->mSnake[0];
     return newHead;
 }
 
@@ -260,17 +252,53 @@ SnakeBody Snake::createNewHead()
  */
 bool Snake::moveFoward()
 {
-    if (this->touchFood())
-    {
-        SnakeBody newHead = this->mFood;
-        this->mSnake.insert(this->mSnake.begin(), newHead);
+    /*
+		 * TODO
+		 * move the snake forward.
+     * If eat food, return true, otherwise return false
+     */
+    int flag = this->touchThing();
+    Direction b = this->mDirection;
+
+    if (flag == 1)
         return true;
+    else if (flag == 2)
+    {
+        int x = this->Gate[1].getX();
+        int y = this->Gate[1].getY();
+
+        if (b == Direction::Down)
+            this->mSnake[0] = SnakeBody(x,y+1);
+        else if (b==Direction::Left)
+            this->mSnake[0] = SnakeBody(x-1,y);
+        else if (b==Direction::Right)
+            this->mSnake[0] = SnakeBody(x+1,y);
+        else
+            this->mSnake[0] = SnakeBody(x,y-1);
+
+        this->mSnake.pop_back();
+        return false;
     }
-    else
+    else if (flag == 3)
+    {
+        int x = this->Gate[0].getX();
+        int y = this->Gate[0].getY();
+
+        if (b == Direction::Down)
+            this->mSnake[0] = SnakeBody(x,y+1);
+        else if (b==Direction::Left)
+            this->mSnake[0] = SnakeBody(x-1,y);
+        else if (b==Direction::Right)
+            this->mSnake[0] = SnakeBody(x+1,y);
+        else
+            this->mSnake[0] = SnakeBody(x,y-1);
+
+        this->mSnake.pop_back();
+        return false;
+    }
+    else if (flag == 0)
     {
         this->mSnake.pop_back();
-        SnakeBody newHead = this->createNewHead();
-        this->mSnake.insert(this->mSnake.begin(), newHead);
         return false;
     }
 }

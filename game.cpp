@@ -310,6 +310,8 @@ void Game::initializeGame()
     this->mPtrSnake.reset(new Snake(this->mGameBoardWidth, this->mGameBoardHeight, this->mInitialSnakeLength));
     this->createRamdonFood();
     this->mPtrSnake->senseFood(this->mFood);
+    this->createRandomGate();
+    this->mPtrSnake->senseGate(this->Gate[0], this->Gate[1]);
     this->mDifficulty = 0;
     this->mPoints = 0;
     this->mCnt = 0;
@@ -340,6 +342,25 @@ void Game::createRamdonFood()
     this->mFood = availableGrids[random_idx];
 }
 
+void Game::createRandomGate()
+{
+    int x1 = (rand() % (this->mGameBoardWidth - 2)) + 1;
+    int y1 = (rand() % (this->mGameBoardHeight - 2)) + 1;
+    int x2 = (rand() % (this->mGameBoardWidth - 2)) + 1;
+    int y2 = (rand() % (this->mGameBoardHeight - 2)) + 1;
+    while (this->mPtrSnake->isPartOfSnake(x1,y1) && this->mPtrSnake->isPartOfSnake(x2,y2))
+    {
+        x1 = (rand() % (this->mGameBoardWidth - 2)) + 1;
+        y1 = (rand() % (this->mGameBoardHeight - 2)) + 1;
+        x2 = (rand() % (this->mGameBoardWidth - 2)) + 1;
+        y2 = (rand() % (this->mGameBoardHeight - 2)) + 1;
+    };
+    SnakeBody Gate1 = SnakeBody(x1,y1);
+    SnakeBody Gate2 = SnakeBody(x2,y2);
+    this->Gate[0] = Gate1;
+    this->Gate[1] = Gate2;
+}
+
 //显示食物
 void Game::renderFood_first() const
 {
@@ -351,6 +372,13 @@ void Game::renderFood_first() const
 void Game::renderFood_final() const
 {
     mvwaddch(this->mWindows[1], this->mFood.getY(), this->mFood.getX(), this->mFoodSymbol_final);
+    wrefresh(this->mWindows[1]);
+}
+
+void Game::renderGate() const
+{
+    mvwaddch(this->mWindows[1], this->Gate[0].getY(), this->Gate[0].getX(), this->mGateSymbol);
+    mvwaddch(this->mWindows[1], this->Gate[1].getY(), this->Gate[1].getX(), this->mGateSymbol);
     wrefresh(this->mWindows[1]);
 }
 
@@ -445,8 +473,6 @@ void Game::adjustDelay()
 //运行游戏
 void Game::runGame()
 {
-    bool moveSuccess;
-    //int key;
     action:
     int suspend = 0;
 
@@ -467,6 +493,7 @@ void Game::runGame()
         {
             break;
         }
+        this->renderGate();
         this->renderSnake();
         if (eatFood == true)
         {
@@ -515,6 +542,7 @@ void Game::runGame()
     {
         while (true)
         {
+            this->renderGate();
             this->renderSnake();
             this->renderFood_first();
             this->renderDifficulty();

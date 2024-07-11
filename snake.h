@@ -42,6 +42,8 @@ public:
     // Check if hit wall
     bool hitWall();
     bool touchFood();
+    int touchThing();
+    void senseGate(SnakeBody Ga1, SnakeBody Ga2);
     bool hitSelf();
     bool checkCollision();
     bool changeDirection(Direction newDirection);
@@ -57,6 +59,7 @@ private:
     const int mInitialSnakeLength;
     Direction mDirection;
     SnakeBody mFood;
+    SnakeBody Gate[2];
     std::vector<SnakeBody> mSnake;
 };
 
