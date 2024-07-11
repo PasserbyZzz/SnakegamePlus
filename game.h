@@ -87,6 +87,7 @@ private:
 
     string mName;
     int mCnt = 0;
+    bool mAttempt = false;
 };
 
 #endif

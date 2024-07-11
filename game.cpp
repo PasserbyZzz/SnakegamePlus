@@ -64,7 +64,12 @@ void Game::createInformationBoard()
 void Game::renderInformationBoard() const
 {
     string name =  this->mName + "!";
-    mvwprintw(this->mWindows[0], 1, 1, "Welcome to The Snake Game,");
+
+    if (!this->mAttempt)
+        mvwprintw(this->mWindows[0], 1, 1, "Welcome to The Snake Game,");
+    else
+        mvwprintw(this->mWindows[0], 1, 1, "Welcome Back! Good Luck This Time,");
+
     mvwprintw(this->mWindows[0], 2, 1, name.c_str());
     mvwprintw(this->mWindows[0], 3, 1, "Website: https://github.com/PasserbyZzz/SnakegamePlus");
     mvwprintw(this->mWindows[0], 4, 1, "Team Members: DZX, QJC and XKY");
@@ -470,12 +475,14 @@ void Game::runGame()
             this->mPtrSnake->senseFood(this->mFood);
             this->adjustDelay();
         }
+
         //食物很安全
         if (this->mCnt <= 0.75 * (80 / sqrt(this->mDifficulty + 1))) {
             this->renderFood_first();
             this->renderDifficulty();
             this->renderPoints();
         }
+
         //食物即将消失
         if (this->mCnt > 0.75 * (80 / sqrt(this->mDifficulty + 1)) && this->mCnt <= (80 / sqrt(this->mDifficulty + 1))) {
             if (this->mCnt % 2) {
@@ -491,6 +498,7 @@ void Game::runGame()
         }
 
         this->mCnt ++;
+        //食物消失
         if (this->mCnt > (80 / sqrt(this->mDifficulty + 1)) ) {
             this->createRamdonFood();
             this->mCnt = 0;
@@ -535,9 +543,9 @@ void Game::startGame()
         this->writeNameBoard();
         choice = this->renderRestartMenu();
         if (choice == false)
-        {
             break;
-        }
+        else
+            this->mAttempt = true;
     }
 }
 
