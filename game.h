@@ -43,7 +43,8 @@ public:
     void renderDifficulty() const;
 
 		void createRamdonFood();
-    void renderFood() const;
+    void renderFood_first() const;
+    void renderFood_final() const;
     void renderSnake() const;
     bool controlSnake() const;
 
@@ -72,8 +73,8 @@ private:
     std::unique_ptr<Snake> mPtrSnake;
     // Food information
     SnakeBody mFood;
-    const char mFoodSymbol = '#';
-
+    const char mFoodSymbol_first = '#';
+    const char mFoodSymbol_final = ' ';
     int mPoints = 0;
     int mDifficulty = 0;
     int mBaseDelay = 100;

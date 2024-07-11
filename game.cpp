@@ -335,9 +335,16 @@ void Game::createRamdonFood()
 }
 
 //显示食物
-void Game::renderFood() const
+void Game::renderFood_first() const
 {
-    mvwaddch(this->mWindows[1], this->mFood.getY(), this->mFood.getX(), this->mFoodSymbol);
+    mvwaddch(this->mWindows[1], this->mFood.getY(), this->mFood.getX(), this->mFoodSymbol_first);
+    wrefresh(this->mWindows[1]);
+}
+
+//食物即将消失
+void Game::renderFood_final() const
+{
+    mvwaddch(this->mWindows[1], this->mFood.getY(), this->mFood.getX(), this->mFoodSymbol_final);
     wrefresh(this->mWindows[1]);
 }
 
@@ -463,9 +470,25 @@ void Game::runGame()
             this->mPtrSnake->senseFood(this->mFood);
             this->adjustDelay();
         }
-        this->renderFood();
-        this->renderDifficulty();
-        this->renderPoints();
+        //食物很安全
+        if (this->mCnt <= 0.75 * (80 / sqrt(this->mDifficulty + 1))) {
+            this->renderFood_first();
+            this->renderDifficulty();
+            this->renderPoints();
+        }
+        //食物即将消失
+        if (this->mCnt > 0.75 * (80 / sqrt(this->mDifficulty + 1)) && this->mCnt <= (80 / sqrt(this->mDifficulty + 1))) {
+            if (this->mCnt % 2) {
+                this->renderFood_first();
+                this->renderDifficulty();
+                this->renderPoints();
+            }
+            else {
+                this->renderFood_final();
+                this->renderDifficulty();
+                this->renderPoints();
+            }
+        }
 
         this->mCnt ++;
         if (this->mCnt > (80 / sqrt(this->mDifficulty + 1)) ) {
@@ -478,12 +501,13 @@ void Game::runGame()
 
         refresh();
     }
+
     if (suspend == 1)
     {
         while (true)
         {
             this->renderSnake();
-            this->renderFood();
+            this->renderFood_first();
             this->renderDifficulty();
             this->renderPoints();
             bool y = this->renderPauseMenu();
