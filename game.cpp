@@ -312,6 +312,7 @@ void Game::initializeGame()
     this->mPtrSnake->senseFood(this->mFood);
     this->mDifficulty = 0;
     this->mPoints = 0;
+    this->mCnt = 0;
     this->mDelay = this->mBaseDelay;
 }
 

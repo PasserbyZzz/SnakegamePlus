@@ -46,14 +46,40 @@ void Snake::initializeSnake()
 {
     // Instead of using a random initialization algorithm
     // We always put the snake at the center of the game mWindows
-    int centerX = this->mGameBoardWidth / 2;
-    int centerY = this->mGameBoardHeight / 2;
+    int w = this->mGameBoardWidth / 5;
+    int h = this->mGameBoardHeight / 5;
+    int W = 3 * w;
+    int H = 3 * h;
 
-    for (int i = 0; i < this->mInitialSnakeLength; i ++)
-    {
-        this->mSnake.push_back(SnakeBody(centerX, centerY + i));
+    int centerX = w + rand() % W;
+    int centerY = h + rand() % H;
+
+    switch (rand() % 4) {
+        case 0:
+            this->mDirection = Direction::Up;
+            for (int i = 0; i < this->mInitialSnakeLength; i ++){
+                this->mSnake.push_back(SnakeBody(centerX, centerY + i));
+            }
+            break;
+        case 1:
+            this->mDirection = Direction::Down;
+            for (int i = 0; i < this->mInitialSnakeLength; i ++){
+                this->mSnake.push_back(SnakeBody(centerX, centerY - i));
+            }
+            break;
+        case 2:
+            this->mDirection = Direction::Left;
+            for (int i = 0; i < this->mInitialSnakeLength; i ++){
+                this->mSnake.push_back(SnakeBody(centerX + 1, centerY));
+            }
+            break;
+        case 3:
+            this->mDirection = Direction::Right;
+            for (int i = 0; i < this->mInitialSnakeLength; i ++){
+                this->mSnake.push_back(SnakeBody(centerX - 1, centerY));
+            }
+            break;
     }
-    this->mDirection = Direction::Up;
 }
 
 bool Snake::isPartOfSnake(int x, int y)
@@ -237,14 +263,14 @@ bool Snake::moveFoward()
     if (this->touchFood())
     {
         SnakeBody newHead = this->mFood;
-        this->mSnake.insert(this->mSnake.begin(), newHead); 
+        this->mSnake.insert(this->mSnake.begin(), newHead);
         return true;
     }
     else
     {
         this->mSnake.pop_back();
         SnakeBody newHead = this->createNewHead();
-        this->mSnake.insert(this->mSnake.begin(), newHead); 
+        this->mSnake.insert(this->mSnake.begin(), newHead);
         return false;
     }
 }
