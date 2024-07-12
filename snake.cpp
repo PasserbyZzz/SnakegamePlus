@@ -94,6 +94,14 @@ bool Snake::isPartOfSnake(int x, int y)
     return false;
 }
 
+bool Snake::isPartOfFood(int x, int y)
+{
+    SnakeBody temp = SnakeBody(x, y);
+    if (this->mFood == temp)
+        return true;
+    return false;
+}
+
 /*
  * Assumption:
  * Only the head would hit wall.
@@ -147,6 +155,22 @@ int Snake::touchThing()
     {
         return 3;
     }
+    else if (this->Gate[2] == newHead)
+    {
+        return 4;
+    }
+    else if (this->Gate[3] == newHead)
+    {
+        return 5;
+    }
+    else if (this->Gate[4] == newHead)
+    {
+        return 6;
+    }
+    else if (this->Gate[5] == newHead)
+    {
+        return 7;
+    }
     else
     {
         return 0;
@@ -158,10 +182,14 @@ void Snake::senseFood(SnakeBody food)
     this->mFood = food;
 }
 
-void Snake::senseGate(SnakeBody ga1, SnakeBody ga2)
+void Snake::senseGate(SnakeBody ga1, SnakeBody ga2, SnakeBody ga3, SnakeBody ga4, SnakeBody ga5, SnakeBody ga6)
 {
-    this->Gate[0]=ga1;
-    this->Gate[1]=ga2;
+    this->Gate.push_back(ga1);
+    this->Gate.push_back(ga2);
+    this->Gate.push_back(ga3);
+    this->Gate.push_back(ga4);
+    this->Gate.push_back(ga5);
+    this->Gate.push_back(ga6);
 }
 
 std::vector<SnakeBody>& Snake::getSnake()
@@ -282,6 +310,74 @@ bool Snake::moveFoward()
     {
         int x = this->Gate[0].getX();
         int y = this->Gate[0].getY();
+
+        if (b == Direction::Down)
+            this->mSnake[0] = SnakeBody(x,y+1);
+        else if (b==Direction::Left)
+            this->mSnake[0] = SnakeBody(x-1,y);
+        else if (b==Direction::Right)
+            this->mSnake[0] = SnakeBody(x+1,y);
+        else
+            this->mSnake[0] = SnakeBody(x,y-1);
+
+        this->mSnake.pop_back();
+        return false;
+    }
+    else if (flag == 4)
+    {
+        int x = this->Gate[3].getX();
+        int y = this->Gate[3].getY();
+
+        if (b == Direction::Down)
+            this->mSnake[0] = SnakeBody(x,y+1);
+        else if (b==Direction::Left)
+            this->mSnake[0] = SnakeBody(x-1,y);
+        else if (b==Direction::Right)
+            this->mSnake[0] = SnakeBody(x+1,y);
+        else
+            this->mSnake[0] = SnakeBody(x,y-1);
+
+        this->mSnake.pop_back();
+        return false;
+    }
+    else if (flag == 5)
+    {
+        int x = this->Gate[2].getX();
+        int y = this->Gate[2].getY();
+
+        if (b == Direction::Down)
+            this->mSnake[0] = SnakeBody(x,y+1);
+        else if (b==Direction::Left)
+            this->mSnake[0] = SnakeBody(x-1,y);
+        else if (b==Direction::Right)
+            this->mSnake[0] = SnakeBody(x+1,y);
+        else
+            this->mSnake[0] = SnakeBody(x,y-1);
+
+        this->mSnake.pop_back();
+        return false;
+    }
+    else if (flag == 6)
+    {
+        int x = this->Gate[5].getX();
+        int y = this->Gate[5].getY();
+
+        if (b == Direction::Down)
+            this->mSnake[0] = SnakeBody(x,y+1);
+        else if (b==Direction::Left)
+            this->mSnake[0] = SnakeBody(x-1,y);
+        else if (b==Direction::Right)
+            this->mSnake[0] = SnakeBody(x+1,y);
+        else
+            this->mSnake[0] = SnakeBody(x,y-1);
+
+        this->mSnake.pop_back();
+        return false;
+    }
+    else if (flag == 7)
+    {
+        int x = this->Gate[4].getX();
+        int y = this->Gate[4].getY();
 
         if (b == Direction::Down)
             this->mSnake[0] = SnakeBody(x,y+1);

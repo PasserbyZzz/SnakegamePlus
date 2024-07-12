@@ -38,12 +38,13 @@ public:
     // bool isSnakeOn(int x, int y);
     // Checking API for generating random food
     bool isPartOfSnake(int x, int y);
+    bool isPartOfFood(int x, int y);
     void senseFood(SnakeBody food);
     // Check if hit wall
     bool hitWall();
     bool touchFood();
     int touchThing();
-    void senseGate(SnakeBody Ga1, SnakeBody Ga2);
+    void senseGate(SnakeBody Ga1, SnakeBody Ga2, SnakeBody Ga3, SnakeBody Ga4, SnakeBody Ga5, SnakeBody Ga6);
     bool hitSelf();
     bool checkCollision();
     bool changeDirection(Direction newDirection);
@@ -59,9 +60,8 @@ private:
     const int mInitialSnakeLength;
     Direction mDirection;
     SnakeBody mFood;
-    SnakeBody Gate[2];
     std::vector<SnakeBody> mSnake;
-
+    std::vector<SnakeBody> Gate;
 };
 
 #endif

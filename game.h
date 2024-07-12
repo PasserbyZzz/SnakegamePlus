@@ -75,7 +75,7 @@ private:
     std::unique_ptr<Snake> mPtrSnake;
     // Food information
     SnakeBody mFood;
-    SnakeBody Gate[2];
+    std::vector<SnakeBody> Gate;
     const char mFoodSymbol_first = '#';
     const char mFoodSymbol_final = ' ';
     const char mGateSymbol = 'O';

@@ -314,7 +314,9 @@ void Game::initializeGame()
     this->createRamdonFood();
     this->mPtrSnake->senseFood(this->mFood);
     this->createRandomGate();
-    this->mPtrSnake->senseGate(this->Gate[0], this->Gate[1]);
+    this->createRandomGate();
+    this->createRandomGate();
+    this->mPtrSnake->senseGate(this->Gate[0], this->Gate[1], this->Gate[2], this->Gate[3], this->Gate[4], this->Gate[5]);
     this->mDifficulty = 0;
     this->mPoints = 0;
     this->mCnt = 0;
@@ -351,17 +353,17 @@ void Game::createRandomGate()
     int y1 = (rand() % (this->mGameBoardHeight - 2)) + 1;
     int x2 = (rand() % (this->mGameBoardWidth - 2)) + 1;
     int y2 = (rand() % (this->mGameBoardHeight - 2)) + 1;
-    while (this->mPtrSnake->isPartOfSnake(x1,y1) && this->mPtrSnake->isPartOfSnake(x2,y2))
+    while (this->mPtrSnake->isPartOfSnake(x1,y1) && this->mPtrSnake->isPartOfSnake(x2,y2) &&this->mPtrSnake->isPartOfFood(x2,y2))
     {
         x1 = (rand() % (this->mGameBoardWidth - 2)) + 1;
         y1 = (rand() % (this->mGameBoardHeight - 2)) + 1;
         x2 = (rand() % (this->mGameBoardWidth - 2)) + 1;
         y2 = (rand() % (this->mGameBoardHeight - 2)) + 1;
-    };
+    }
     SnakeBody Gate1 = SnakeBody(x1,y1);
     SnakeBody Gate2 = SnakeBody(x2,y2);
-    this->Gate[0] = Gate1;
-    this->Gate[1] = Gate2;
+    this->Gate.push_back(Gate1);
+    this->Gate.push_back(Gate2);
 }
 
 //ÏÔÊ¾Ê³Îï
@@ -380,8 +382,21 @@ void Game::renderFood_final() const
 
 void Game::renderGate() const
 {
+    wattron(this->mWindows[1], COLOR_PAIR(3));
     mvwaddch(this->mWindows[1], this->Gate[0].getY(), this->Gate[0].getX(), this->mGateSymbol);
     mvwaddch(this->mWindows[1], this->Gate[1].getY(), this->Gate[1].getX(), this->mGateSymbol);
+    wattroff(this->mWindows[1], COLOR_PAIR(3));
+
+    wattron(this->mWindows[1], COLOR_PAIR(4));
+    mvwaddch(this->mWindows[1], this->Gate[2].getY(), this->Gate[2].getX(), this->mGateSymbol);
+    mvwaddch(this->mWindows[1], this->Gate[3].getY(), this->Gate[3].getX(), this->mGateSymbol);
+    wattroff(this->mWindows[1], COLOR_PAIR(4));
+
+    wattron(this->mWindows[1], COLOR_PAIR(5));
+    mvwaddch(this->mWindows[1], this->Gate[4].getY(), this->Gate[4].getX(), this->mGateSymbol);
+    mvwaddch(this->mWindows[1], this->Gate[5].getY(), this->Gate[5].getX(), this->mGateSymbol);
+    wattroff(this->mWindows[1], COLOR_PAIR(5));
+
     wrefresh(this->mWindows[1]);
 }
 
@@ -590,6 +605,7 @@ void Game::startGame()
             break;
         else
             this->mAttempt = true;
+            this->Gate.clear();
     }
 }
 

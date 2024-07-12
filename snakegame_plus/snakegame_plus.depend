@@ -1,15 +1,15 @@
 # depslib dependency file v1.0
-1720755263 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.cpp
+1720762243 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.cpp
 	<string>
 	<cstdlib>
 	<ctime>
 	<iostream>
 	"snake.h"
 
-1720703106 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.h
+1720762243 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.h
 	<vector>
 
-1720759537 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
+1720762243 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
 	<string>
 	<iostream>
 	<cmath>
@@ -21,7 +21,7 @@
 	"game.h"
 	"color.h"
 
-1720703106 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
+1720760064 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
 	"curses.h"
 	<string>
 	<vector>
@@ -43,8 +43,9 @@
 	<iostream>
 	<cstring>
 
-1720754600 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
+1720759900 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
 	"color.h"
+	"curses.h"
 	<windows.h>
 
 1720759430 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.h
