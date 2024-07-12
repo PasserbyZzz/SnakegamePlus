@@ -5,7 +5,6 @@
 
 #include "snake.h"
 
-
 SnakeBody::SnakeBody()
 {
 }

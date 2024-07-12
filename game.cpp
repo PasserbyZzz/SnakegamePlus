@@ -11,6 +11,7 @@
 #include <algorithm>
 
 #include "game.h"
+#include "color.h"
 
 using namespace std;
 
@@ -40,6 +41,8 @@ Game::Game()
     // Initialize the leader board to be all zeros
     this->mLeaderBoard.assign(this->mNumLeaders, 0);
     this->mNameBoard.assign(this->mNumLeaders, "None");
+
+    initColors();
 }
 
 //析构函数
@@ -383,14 +386,26 @@ void Game::renderGate() const
 }
 
 //显示蛇
-void Game::renderSnake() const
-{
+void Game::renderSnake() const {
     int snakeLength = this->mPtrSnake->getLength();
-    std::vector<SnakeBody>& snake = this->mPtrSnake->getSnake();
-    for (int i = 0; i < snakeLength; i ++)
-    {
+    const std::vector<SnakeBody>& snake = this->mPtrSnake->getSnake();  // 修改为const引用，避免不必要的复制
+
+    for (int i = 0; i < snakeLength; i++) {
+        if (i % 2 == 0) {
+            wattron(this->mWindows[1], COLOR_PAIR(2));  // 启用绿色
+        } else {
+            wattron(this->mWindows[1], COLOR_PAIR(1));  // 启用白色
+        }
+
         mvwaddch(this->mWindows[1], snake[i].getY(), snake[i].getX(), this->mSnakeSymbol);
+
+        if (i % 2 == 0) {
+            wattroff(this->mWindows[1], COLOR_PAIR(2));  // 关闭绿色
+        } else {
+            wattroff(this->mWindows[1], COLOR_PAIR(1));  // 关闭白色
+        }
     }
+
     wrefresh(this->mWindows[1]);
 }
 

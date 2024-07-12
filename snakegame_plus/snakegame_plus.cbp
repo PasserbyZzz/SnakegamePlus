@@ -36,6 +36,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../color.cpp" />
+		<Unit filename="../color.h" />
 		<Unit filename="../curses.h" />
 		<Unit filename="../game.cpp" />
 		<Unit filename="../game.h" />

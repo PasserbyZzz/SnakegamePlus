@@ -61,6 +61,7 @@ private:
     SnakeBody mFood;
     SnakeBody Gate[2];
     std::vector<SnakeBody> mSnake;
+
 };
 
 #endif
