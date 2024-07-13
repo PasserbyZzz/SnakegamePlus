@@ -1,5 +1,6 @@
 #include "game.h"
 #include "curses.h"
+#include "color.h""
 #include <string>
 #include <iostream>
 #include <cstring>
@@ -8,6 +9,8 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
+    displayImageWithText();
+
     //输入玩家姓名
     initscr(); //初始化curses模式
     raw();
@@ -25,4 +28,6 @@ int main(int argc, char** argv)
     Game game;
     game.setName(s);
     game.startGame();
+
+    return 0;
 }

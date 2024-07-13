@@ -16,6 +16,11 @@
 				</Compiler>
 				<Linker>
 					<Add library="pdcurses" />
+					<Add library="sfml-system-d" />
+					<Add library="sfml-window-d" />
+					<Add library="sfml-graphics-d" />
+					<Add library="sfml-audio-d" />
+					<Add library="sfml-network-d" />
 					<Add directory="../../SnakegamePlus" />
 				</Linker>
 			</Target>
@@ -29,13 +34,23 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="pdcurses" />
+					<Add library="sfml-system" />
+					<Add library="sfml-window" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-audio" />
+					<Add library="sfml-network" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="D:/SFML-2.5.1/include" />
 		</Compiler>
+		<Linker>
+			<Add directory="D:/SFML-2.5.1/bulid/lib" />
+		</Linker>
 		<Unit filename="../color.cpp" />
 		<Unit filename="../color.h" />
 		<Unit filename="../curses.h" />
