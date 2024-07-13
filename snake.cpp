@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "snake.h"
+#include "color.h"
 
 SnakeBody::SnakeBody()
 {
@@ -33,6 +34,8 @@ Snake::Snake(int gameBoardWidth, int gameBoardHeight, int initialSnakeLength): m
 {
     this->initializeSnake();
     this->setRandomSeed();
+    this->travelsound = gameSound("travel_through_wormhole.wav");
+    this->foodsound = gameSound("game_bonus.wav");
 }
 
 void Snake::setRandomSeed()
@@ -145,30 +148,37 @@ int Snake::touchThing()
     SnakeBody newHead = this->createNewHead();
     if (this->mFood == newHead)
     {
+        this->foodsound->play();
         return 1;
     }
     else if (this->Gate[0] == newHead)
     {
+        this->travelsound->play();
         return 2;
     }
     else if (this->Gate[1] == newHead)
     {
+        this->travelsound->play();
         return 3;
     }
     else if (this->Gate[2] == newHead)
     {
+        this->travelsound->play();
         return 4;
     }
     else if (this->Gate[3] == newHead)
     {
+        this->travelsound->play();
         return 5;
     }
     else if (this->Gate[4] == newHead)
     {
+        this->travelsound->play();
         return 6;
     }
     else if (this->Gate[5] == newHead)
     {
+        this->travelsound->play();
         return 7;
     }
     else

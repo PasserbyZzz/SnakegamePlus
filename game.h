@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <SFML/Audio.hpp>
 
 #include "snake.h"
 
@@ -92,6 +93,9 @@ private:
     string mName;
     int mCnt = 0;
     bool mAttempt = false;
+    sf::Sound* movesound;
+    sf::Sound* deadsound;
+    sf::Sound* pausesound;
 };
 
 #endif

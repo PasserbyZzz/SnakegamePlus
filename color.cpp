@@ -128,3 +128,37 @@ std::string enterName()
 
     return s;
 }
+
+//²¥·Å³¤ÒôÀÖ
+sf::Music* gameMusic(std::string music_name)
+{
+    // ¼ÓÔØ±³¾°ÒôÀÖ
+    sf::Music* backgroundMusic = new sf::Music;
+
+    if (!backgroundMusic->openFromFile(music_name)) {
+        std::cerr << "Failed to load background music" << std::endl;
+        delete backgroundMusic; // ÊÍ·ÅÄÚ´æ
+        return nullptr;
+    }
+
+    // ÉèÖÃÑ­»·²¥·Å²¢²¥·Å±³¾°ÒôÀÖ
+    backgroundMusic->setLoop(true);
+
+    return backgroundMusic;
+}
+
+//²¥·Å¶ÌÒôÀÖ
+sf::Sound* gameSound(std::string sound_name)
+{
+    sf::SoundBuffer* buffer = new sf::SoundBuffer;
+
+    if (!buffer->loadFromFile(sound_name)) {
+        std::cerr << "Failed to load background music" << std::endl;
+        return nullptr;
+    }
+
+    sf::Sound* sound = new sf::Sound;
+    sound->setBuffer(*buffer);
+
+    return sound;
+}

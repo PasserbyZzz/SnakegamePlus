@@ -2,6 +2,7 @@
 #define SNAKE_H
 
 #include <vector>
+#include <SFML/Audio.hpp>
 
 enum class Direction
 {
@@ -62,6 +63,8 @@ private:
     SnakeBody mFood;
     std::vector<SnakeBody> mSnake;
     std::vector<SnakeBody> Gate;
+    sf::Sound* foodsound;
+    sf::Sound* travelsound;
 };
 
 #endif

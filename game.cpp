@@ -9,6 +9,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <SFML/Audio.hpp>
 
 #include "game.h"
 #include "color.h"
@@ -42,17 +43,27 @@ Game::Game()
     this->mLeaderBoard.assign(this->mNumLeaders, 0);
     this->mNameBoard.assign(this->mNumLeaders, "None");
 
+    //Initialize the color
     initColors();
+
+    //Initialize the sound
+    this->pausesound = gameSound("game_start.wav");
+    this->movesound = gameSound("snake_move.wav");
+    this->deadsound = gameSound("game_over.wav");
 }
 
 //析构函数
 Game::~Game()
 {
+
     for (int i = 0; i < this->mWindows.size(); i ++)
     {
         delwin(this->mWindows[i]);
     }
     endwin();
+    delete movesound;
+    delete deadsound;
+    delete pausesound;
 }
 
 //创建简介栏
@@ -435,6 +446,7 @@ bool Game::controlSnake() const
         case 'w':
         case KEY_UP:
         {
+            this->movesound->play();
             this->mPtrSnake->changeDirection(Direction::Up);
             break;
         }
@@ -442,6 +454,7 @@ bool Game::controlSnake() const
         case 's':
         case KEY_DOWN:
         {
+            this->movesound->play();
             this->mPtrSnake->changeDirection(Direction::Down);
             break;
         }
@@ -449,6 +462,7 @@ bool Game::controlSnake() const
         case 'a':
         case KEY_LEFT:
         {
+            this->movesound->play();
             this->mPtrSnake->changeDirection(Direction::Left);
             break;
         }
@@ -456,11 +470,13 @@ bool Game::controlSnake() const
         case 'd':
         case KEY_RIGHT:
         {
+            this->movesound->play();
             this->mPtrSnake->changeDirection(Direction::Right);
             break;
         }
         case ' ':
         {
+            this->pausesound->play();
             return false;
             break;
         }
@@ -521,6 +537,7 @@ void Game::runGame()
         bool collision = this->mPtrSnake->checkCollision();
         if (collision == true)
         {
+            this->deadsound->play();
             break;
         }
         this->renderGate();

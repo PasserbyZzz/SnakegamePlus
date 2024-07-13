@@ -1,15 +1,17 @@
 # depslib dependency file v1.0
-1720762243 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.cpp
+1720869219 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.cpp
 	<string>
 	<cstdlib>
 	<ctime>
 	<iostream>
 	"snake.h"
+	"color.h"
 
-1720762243 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.h
+1720869062 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.h
 	<vector>
+	<SFML/Audio.hpp>
 
-1720762243 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
+1720869251 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
 	<string>
 	<iostream>
 	<cmath>
@@ -18,15 +20,17 @@
 	<thread>
 	<fstream>
 	<algorithm>
+	<SFML/Audio.hpp>
 	"game.h"
 	"color.h"
 
-1720760064 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
+1720868705 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
 	"curses.h"
 	<string>
 	<vector>
 	<memory>
 	<string>
+	<SFML/Audio.hpp>
 	"snake.h"
 
 1655723618 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\curses.h
@@ -36,7 +40,7 @@
 	<wchar.h>
 	<stdbool.h>
 
-1720849952 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
+1720870582 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
 	"game.h"
 	"curses.h"
 	"color.h"
@@ -44,15 +48,17 @@
 	<iostream>
 	<cstring>
 
-1720848370 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
+1720864236 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
 	"color.h"
 	"curses.h"
 	<windows.h>
+	<string>
 	<iostream>
 
-1720849998 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.h
+1720861917 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.h
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
+	<SFML/Audio.hpp>
 	<string>
 
 1720786599 d:\sfml-2.5.1\include\sfml\graphics.hpp
@@ -463,4 +469,108 @@
 	<SFML/Graphics/PrimitiveType.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\inputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<algorithm>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Mutex.hpp>
+	<cstdlib>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Vector3.hpp>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\alresource.hpp
+	<SFML/Audio/Export.hpp>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\outputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<vector>
+	<string>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+	<vector>
+	<SFML/Audio/SoundFileFactory.inl>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\soundfilefactory.inl
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\soundfilereader.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1720786599 d:\sfml-2.5.1\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
 

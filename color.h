@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 
 //ªÊ÷∆—’…´
@@ -12,5 +13,9 @@ void initColors();
 sf::Vector2u getScreenResolution();
 void displayImageWithText();
 std::string enterName();
+
+//≤•∑≈“Ù¿÷
+sf::Music* gameMusic(std::string music_name);
+sf::Sound* gameSound(std::string sound_name);
 
 #endif
