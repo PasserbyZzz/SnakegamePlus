@@ -36,7 +36,7 @@
 	<wchar.h>
 	<stdbool.h>
 
-1720843786 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
+1720849952 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
 	"game.h"
 	"curses.h"
 	"color.h"
@@ -44,15 +44,16 @@
 	<iostream>
 	<cstring>
 
-1720843689 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
+1720848370 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
 	"color.h"
 	"curses.h"
 	<windows.h>
 	<iostream>
 
-1720843534 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.h
+1720849998 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.h
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
+	<string>
 
 1720786599 d:\sfml-2.5.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
