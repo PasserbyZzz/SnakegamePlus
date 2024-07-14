@@ -50,6 +50,7 @@ Game::Game()
     this->pausesound = gameSound("game_start.wav");
     this->movesound = gameSound("snake_move.wav");
     this->deadsound = gameSound("game_over.wav");
+    this->switchsound = gameSound("light_switch.wav");
 }
 
 //析构函数
@@ -64,6 +65,7 @@ Game::~Game()
     delete movesound;
     delete deadsound;
     delete pausesound;
+    delete switchsound;
 }
 
 //创建简介栏
@@ -150,7 +152,7 @@ void Game::renderLeaderBoard() const
 }
 
 //游戏结束后，让用户选择Restart还是Quit
-bool Game::renderRestartMenu() const
+int Game::renderRestartMenu() const
 {
     WINDOW * menu;
     int width = this->mGameBoardWidth * 0.5;
@@ -160,7 +162,7 @@ bool Game::renderRestartMenu() const
 
     menu = newwin(height, width, startY, startX);
     box(menu, 0, 0);
-    std::vector<std::string> menuItems = {"Restart", "Quit"};
+    std::vector<std::string> menuItems = {"Restart", "Back", "Quit"};
 
     int index = 0;
     int offset = 4;
@@ -171,6 +173,7 @@ bool Game::renderRestartMenu() const
     mvwprintw(menu, 0 + offset, 1, menuItems[0].c_str());
     wattroff(menu, A_STANDOUT);
     mvwprintw(menu, 1 + offset, 1, menuItems[1].c_str());
+    mvwprintw(menu, 2 + offset, 1, menuItems[2].c_str());
 
     wrefresh(menu);
 
@@ -180,28 +183,35 @@ bool Game::renderRestartMenu() const
         key = getch();
         switch(key)
         {
+            this->switchsound->play();
             case 'W':
             case 'w':
             case KEY_UP:
             {
+                this->switchsound->play();
                 mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
                 index --;
                 index = (index < 0) ? menuItems.size() - 1 : index;
                 wattron(menu, A_STANDOUT);
                 mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
                 wattroff(menu, A_STANDOUT);
+                int index_ = (index - 1 < 0) ? menuItems.size() - 1 : index - 1;
+                mvwprintw(menu, index_ + offset, 1, menuItems[index_].c_str());
                 break;
             }
             case 'S':
             case 's':
             case KEY_DOWN:
             {
+                this->switchsound->play();
                 mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
                 index ++;
                 index = (index > menuItems.size() - 1) ? 0 : index;
                 wattron(menu, A_STANDOUT);
                 mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
                 wattroff(menu, A_STANDOUT);
+                int index_ = (index + 1 > menuItems.size() - 1) ? 0 : index + 1;
+                mvwprintw(menu, index_ + offset, 1, menuItems[index_].c_str());
                 break;
             }
         }
@@ -214,19 +224,11 @@ bool Game::renderRestartMenu() const
     }
     delwin(menu);
 
-    if (index == 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
+    return index;
 }
 
 //游戏暂停后，让用户选择Continue还是Quit
-bool Game::renderPauseMenu() const
+int Game::renderPauseMenu() const
 {
     WINDOW * menu;
     int width = this->mGameBoardWidth * 0.5;
@@ -236,7 +238,7 @@ bool Game::renderPauseMenu() const
 
     menu = newwin(height, width, startY, startX);
     box(menu, 0, 0);
-    std::vector<std::string> menuItems = {"Continue", "Quit"};
+    std::vector<std::string> menuItems = {"Continue", "Back", "Quit"};
 
     int index = 0;
     int offset = 4;
@@ -248,6 +250,7 @@ bool Game::renderPauseMenu() const
     mvwprintw(menu, 0 + offset, 1, menuItems[0].c_str());
     wattroff(menu, A_STANDOUT);
     mvwprintw(menu, 1 + offset, 1, menuItems[1].c_str());
+    mvwprintw(menu, 2 + offset, 1, menuItems[2].c_str());
 
     wrefresh(menu);
 
@@ -257,28 +260,35 @@ bool Game::renderPauseMenu() const
         key = getch();
         switch(key)
         {
+            this->switchsound->play();
             case 'W':
             case 'w':
             case KEY_UP:
             {
+                this->switchsound->play();
                 mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
                 index --;
                 index = (index < 0) ? menuItems.size() - 1 : index;
                 wattron(menu, A_STANDOUT);
                 mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
                 wattroff(menu, A_STANDOUT);
+                int index_ = (index - 1 < 0) ? menuItems.size() - 1 : index - 1;
+                mvwprintw(menu, index_ + offset, 1, menuItems[index_].c_str());
                 break;
             }
             case 'S':
             case 's':
             case KEY_DOWN:
             {
+                this->switchsound->play();
                 mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
                 index ++;
                 index = (index > menuItems.size() - 1) ? 0 : index;
                 wattron(menu, A_STANDOUT);
                 mvwprintw(menu, index + offset, 1, menuItems[index].c_str());
                 wattroff(menu, A_STANDOUT);
+                int index_ = (index + 1 > menuItems.size() - 1) ? 0 : index + 1;
+                mvwprintw(menu, index_ + offset, 1, menuItems[index_].c_str());
                 break;
             }
         }
@@ -291,15 +301,7 @@ bool Game::renderPauseMenu() const
     }
     delwin(menu);
 
-    if (index == 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
+    return index;
 }
 
 //修改分数，并显示在提示栏
@@ -594,19 +596,24 @@ void Game::runGame()
             this->renderFood_first();
             this->renderDifficulty();
             this->renderPoints();
-            bool y = this->renderPauseMenu();
-            if(y)
+            int y = this->renderPauseMenu();
+            if (y == 0)
                 goto action;
-            else
+            else if (y == 2)
                 break;
+            else {
+                this->backToMenu = true;
+                break;
+            }
         }
     }
 }
 
 //开始游戏
 void Game::startGame()
-{   refresh();
-    bool choice;
+{
+    refresh();
+    int choice;
     while (true)
     {
         this->readLeaderBoard();
@@ -618,11 +625,16 @@ void Game::startGame()
         this->writeLeaderBoard();
         this->writeNameBoard();
         choice = this->renderRestartMenu();
-        if (choice == false)
+        if (choice == 2)
             break;
-        else
+        else if (choice == 0) {
             this->mAttempt = true;
             this->Gate.clear();
+        }
+        else {
+            this->backToMenu = true;
+            break;
+        }
     }
 }
 
@@ -739,4 +751,9 @@ bool Game::writeNameBoard()
 void Game::setName(string name)
 {
     this->mName = name;
+}
+
+bool Game::getBack() const
+{
+    return this->backToMenu;
 }

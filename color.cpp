@@ -111,6 +111,8 @@ void displayImageWithText() {
 
 int renderMenu()
 {
+    sf::Sound* switchsound = gameSound("light_switch.wav");
+
     // ³õÊ¼»¯curses¿â
     initscr();
     noecho();  // ½ûÖ¹»ØÏÔ
@@ -143,6 +145,7 @@ int renderMenu()
             case 'w':
             case KEY_UP:
             {
+                switchsound->play();
                 mvprintw(LINES / 2 + index - 2, (COLS - strlen(menuItems[index].c_str())) / 2, menuItems[index].c_str());
                 index --;
                 index = (index < 0) ? menuItems.size() - 1 : index;
@@ -160,6 +163,7 @@ int renderMenu()
             case 's':
             case KEY_DOWN:
             {
+                switchsound->play();
                 mvprintw(LINES / 2 + index - 2, (COLS - strlen(menuItems[index].c_str())) / 2, menuItems[index].c_str());
                 index ++;
                 index = (index > menuItems.size() - 1) ? 0 : index;
@@ -182,6 +186,7 @@ int renderMenu()
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     endwin();
+    delete switchsound;
 
     return index;
 }

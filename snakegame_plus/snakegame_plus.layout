@@ -2,67 +2,68 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="..\snake.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4200" topLine="159" />
-		</Cursor>
-	</File>
-	<File name="..\main.cpp" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="863" topLine="27" />
-		</Cursor>
-	</File>
-	<File name="..\game.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="131" topLine="0" />
-		</Cursor>
-	</File>
 	<File name="..\color.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3729" topLine="117" />
+			<Cursor1 position="3276" topLine="99" />
 		</Cursor>
 	</File>
-	<File name="..\snake.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\snake.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="80" topLine="23" />
+			<Cursor1 position="909" topLine="48" />
 		</Cursor>
 	</File>
-	<File name="..\game.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="..\game.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="15994" topLine="191" />
+			<Cursor1 position="1103" topLine="43" />
 		</Cursor>
-		<Folding>
-			<Collapse line="70" />
-			<Collapse line="78" />
-			<Collapse line="94" />
-			<Collapse line="102" />
-			<Collapse line="108" />
-			<Collapse line="116" />
-			<Collapse line="132" />
-			<Collapse line="153" />
-			<Collapse line="229" />
-			<Collapse line="306" />
-			<Collapse line="314" />
-			<Collapse line="322" />
-			<Collapse line="338" />
-			<Collapse line="361" />
-			<Collapse line="381" />
-			<Collapse line="388" />
-			<Collapse line="394" />
-			<Collapse line="414" />
-			<Collapse line="492" />
-			<Collapse line="510" />
-			<Collapse line="631" />
-			<Collapse line="651" />
-			<Collapse line="678" />
-			<Collapse line="701" />
-			<Collapse line="718" />
-			<Collapse line="739" />
-		</Folding>
 	</File>
 	<File name="..\color.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="94" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\game.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5654" topLine="114" />
+		</Cursor>
+		<Folding>
+			<Collapse line="57" />
+			<Collapse line="72" />
+			<Collapse line="80" />
+			<Collapse line="96" />
+			<Collapse line="104" />
+			<Collapse line="110" />
+			<Collapse line="118" />
+			<Collapse line="134" />
+			<Collapse line="308" />
+			<Collapse line="316" />
+			<Collapse line="324" />
+			<Collapse line="340" />
+			<Collapse line="363" />
+			<Collapse line="383" />
+			<Collapse line="390" />
+			<Collapse line="396" />
+			<Collapse line="416" />
+			<Collapse line="441" />
+			<Collapse line="494" />
+			<Collapse line="512" />
+			<Collapse line="643" />
+			<Collapse line="663" />
+			<Collapse line="690" />
+			<Collapse line="713" />
+			<Collapse line="730" />
+			<Collapse line="751" />
+			<Collapse line="756" />
+		</Folding>
+	</File>
+	<File name="..\snake.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="580" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="..\main.cpp" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1097" topLine="38" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

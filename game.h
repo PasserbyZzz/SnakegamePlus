@@ -52,11 +52,12 @@ public:
     bool controlSnake() const;
 
     void startGame();
-    bool renderRestartMenu() const;
-    bool renderPauseMenu() const;
+    int renderRestartMenu() const;
+    int renderPauseMenu() const;
     void adjustDelay();
 
     void setName(string name);
+    bool getBack() const;
 
 
 private:
@@ -96,6 +97,8 @@ private:
     sf::Sound* movesound;
     sf::Sound* deadsound;
     sf::Sound* pausesound;
+    sf::Sound* switchsound;
+    bool backToMenu = false;
 };
 
 #endif

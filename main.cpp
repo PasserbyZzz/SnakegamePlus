@@ -18,7 +18,13 @@ int main(int argc, char** argv)
     sf::Sound* sound1 = gameSound("game_start.wav");
     sound1->play();
 
+    bool music = false;
+
+    action:
     //Ñ¡ÔñÄ£Ê½
+    if (music)
+        backgroundMusic1->play();
+
     int mode = renderMenu();
     sound1->play();
 
@@ -37,6 +43,11 @@ int main(int argc, char** argv)
         game.setName(s);
         game.startGame();
         backgroundMusic2->stop();
+
+        if (game.getBack()) {
+            music = true;
+            goto action;
+        }
 
         delete backgroundMusic1;
         delete backgroundMusic2;

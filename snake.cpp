@@ -38,6 +38,12 @@ Snake::Snake(int gameBoardWidth, int gameBoardHeight, int initialSnakeLength): m
     this->foodsound = gameSound("game_bonus.wav");
 }
 
+Snake::~Snake()
+{
+    delete travelsound;
+    delete foodsound;
+}
+
 void Snake::setRandomSeed()
 {
     // use current time as seed for random generator
