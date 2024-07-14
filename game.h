@@ -99,6 +99,7 @@ private:
     sf::Sound* pausesound;
     sf::Sound* switchsound;
     bool backToMenu = false;
+    bool exit = false;
 };
 
 #endif

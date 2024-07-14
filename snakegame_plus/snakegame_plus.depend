@@ -11,11 +11,11 @@
 	<vector>
 	<SFML/Audio.hpp>
 
-1720951013 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
+1720966334 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
 	<string>
 	<iostream>
 	<cmath>
-	<string>
+	<stdlib.h>
 	<chrono>
 	<thread>
 	<fstream>
@@ -24,7 +24,7 @@
 	"game.h"
 	"color.h"
 
-1720949899 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
+1720966217 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
 	"curses.h"
 	<string>
 	<vector>
@@ -40,7 +40,7 @@
 	<wchar.h>
 	<stdbool.h>
 
-1720950026 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
+1720951204 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
 	"game.h"
 	"curses.h"
 	"color.h"

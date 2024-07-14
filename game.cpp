@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 #include <cmath>
-#include <string>
+#include <stdlib.h>
 
 // For terminal delay
 #include <chrono>
@@ -599,9 +599,12 @@ void Game::runGame()
             int y = this->renderPauseMenu();
             if (y == 0)
                 goto action;
-            else if (y == 2)
+            else if (y == 2) {
+                this->exit = true;
                 break;
+            }
             else {
+                this->exit = true;
                 this->backToMenu = true;
                 break;
             }
@@ -624,6 +627,7 @@ void Game::startGame()
         this->updateLeaderBoard();
         this->writeLeaderBoard();
         this->writeNameBoard();
+        if (this->exit) break;
         choice = this->renderRestartMenu();
         if (choice == 2)
             break;
