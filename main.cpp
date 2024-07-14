@@ -18,23 +18,42 @@ int main(int argc, char** argv)
     sf::Sound* sound1 = gameSound("game_start.wav");
     sound1->play();
 
-    //输入玩家姓名
-    string s = enterName();
-    backgroundMusic1->stop();
+    //选择模式
+    int mode = renderMenu();
     sound1->play();
 
-    //播放游戏阶段的音乐
-    sf::Music* backgroundMusic2 = gameMusic("African_fun_long.ogg");
-    backgroundMusic2->play();
+    if (mode == 0) {
+        //输入玩家姓名
+        string s = enterName();
+        backgroundMusic1->stop();
+        sound1->play();
 
-    //生成相应游戏
-    Game game;
-    game.setName(s);
-    game.startGame();
-    backgroundMusic2->stop();
+        //播放游戏阶段的音乐
+        sf::Music* backgroundMusic2 = gameMusic("African_fun_long.ogg");
+        backgroundMusic2->play();
 
-    delete backgroundMusic1;
-    delete backgroundMusic2;
+        //生成相应游戏
+        Game game;
+        game.setName(s);
+        game.startGame();
+        backgroundMusic2->stop();
+
+        delete backgroundMusic1;
+        delete backgroundMusic2;
+        delete sound1;
+    }
+
+    else if (mode == 1) {
+
+    }
+
+    else if (mode == 2) {
+
+    }
+
+    else if (mode == 3) {
+
+    }
 
     return 0;
 }

@@ -12,6 +12,7 @@ void initColors();
 //绘制开始界面
 sf::Vector2u getScreenResolution();
 void displayImageWithText();
+int renderMenu();
 std::string enterName();
 
 //播放音乐

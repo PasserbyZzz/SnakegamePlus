@@ -3,6 +3,8 @@
 
 #include <windows.h>
 #include <string>
+#include <chrono>
+#include <thread>
 #include <iostream>
 
 //设置字体颜色
@@ -105,6 +107,83 @@ void displayImageWithText() {
         // 显示内容
         window.display();
     }
+}
+
+int renderMenu()
+{
+    // 初始化curses库
+    initscr();
+    noecho();  // 禁止回显
+    cbreak();  // 禁止行缓冲
+    keypad(stdscr, TRUE); // 启用功能键
+    curs_set(0); // 禁用光标
+
+    std::vector<std::string> menuItems = {"Single", "Pair", "Fun", "Quit"};
+
+    attron(A_STANDOUT);
+    mvprintw(LINES / 2 - 2, (COLS - strlen(menuItems[0].c_str())) / 2, menuItems[0].c_str());
+    attroff(A_STANDOUT);
+
+    mvprintw(LINES / 2 - 1, (COLS - strlen(menuItems[1].c_str())) / 2, menuItems[1].c_str());
+
+    mvprintw(LINES / 2 - 0, (COLS - strlen(menuItems[2].c_str())) / 2, menuItems[2].c_str());
+
+    mvprintw(LINES / 2 + 1, (COLS - strlen(menuItems[3].c_str())) / 2, menuItems[3].c_str());
+
+    refresh();
+
+    int index = 0;
+    int key;
+    while (true)
+    {
+        key = getch();
+        switch(key)
+        {
+            case 'W':
+            case 'w':
+            case KEY_UP:
+            {
+                mvprintw(LINES / 2 + index - 2, (COLS - strlen(menuItems[index].c_str())) / 2, menuItems[index].c_str());
+                index --;
+                index = (index < 0) ? menuItems.size() - 1 : index;
+                attron(A_STANDOUT);
+                mvprintw(LINES / 2 + index - 2, (COLS - strlen(menuItems[index].c_str())) / 2, menuItems[index].c_str());
+                attroff(A_STANDOUT);
+                int index_1 = (index - 1 < 0) ? menuItems.size() - 1 : index - 1;
+                int index_2 = (index_1 - 1 < 0) ? menuItems.size() - 1 : index_1 - 1;
+                mvprintw(LINES / 2 + index_1 - 2, (COLS - strlen(menuItems[index_1].c_str())) / 2, menuItems[index_1].c_str());
+                mvprintw(LINES / 2 + index_2 - 2, (COLS - strlen(menuItems[index_2].c_str())) / 2, menuItems[index_2].c_str());
+                break;
+            }
+
+            case 'S':
+            case 's':
+            case KEY_DOWN:
+            {
+                mvprintw(LINES / 2 + index - 2, (COLS - strlen(menuItems[index].c_str())) / 2, menuItems[index].c_str());
+                index ++;
+                index = (index > menuItems.size() - 1) ? 0 : index;
+                attron(A_STANDOUT);
+                mvprintw(LINES / 2 + (index - 2), (COLS - strlen(menuItems[index].c_str())) / 2, menuItems[index].c_str());
+                attroff(A_STANDOUT);
+                int index_1 = (index + 1 > menuItems.size() - 1) ? 0 : index + 1;
+                int index_2 = (index_1 + 1 > menuItems.size() - 1) ? 0 : index_1 + 1;
+                mvprintw(LINES / 2 + index_1 - 2, (COLS - strlen(menuItems[index_1].c_str())) / 2, menuItems[index_1].c_str());
+                mvprintw(LINES / 2 + index_2 - 2, (COLS - strlen(menuItems[index_2].c_str())) / 2, menuItems[index_2].c_str());
+                break;
+            }
+        }
+        refresh();
+
+        if (key == ' ' || key == 10)
+        {
+            break;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+    endwin();
+
+    return index;
 }
 
 //用户输入姓名
