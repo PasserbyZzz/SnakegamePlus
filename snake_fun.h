@@ -99,6 +99,7 @@ private:
 
     sf::Sound* foodsound;
     sf::Sound* dingsound;
+    sf::Sound* movesound;
 };
 
 #endif

@@ -36,11 +36,14 @@ SnakeFun::SnakeFun(int gameBoardWidth, int gameBoardHeight, int initialSnakeLeng
     this->setRandomSeed();
     this->foodsound = gameSound("game_bonus.wav");
     this->dingsound = gameSound("ding.wav");
+    this->movesound = gameSound("snake_move.wav");
 }
 
 SnakeFun::~SnakeFun()
 {
     delete foodsound;
+    delete dingsound;
+    delete movesound;
 }
 
 void SnakeFun::setRandomSeed()
@@ -346,6 +349,7 @@ bool SnakeFun::changeDirection(DirectionFun newDirection)
         {
             if (newDirection == DirectionFun::Left || newDirection == DirectionFun::Right)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }
@@ -358,6 +362,7 @@ bool SnakeFun::changeDirection(DirectionFun newDirection)
         {
             if (newDirection == DirectionFun::Left || newDirection == DirectionFun::Right)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }
@@ -370,6 +375,7 @@ bool SnakeFun::changeDirection(DirectionFun newDirection)
         {
             if (newDirection == DirectionFun::Up || newDirection == DirectionFun::Down)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }
@@ -382,6 +388,7 @@ bool SnakeFun::changeDirection(DirectionFun newDirection)
         {
             if (newDirection == DirectionFun::Up || newDirection == DirectionFun::Down)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }

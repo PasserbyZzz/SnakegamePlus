@@ -181,7 +181,6 @@ int Game::renderRestartMenu() const
         key = getch();
         switch(key)
         {
-            this->switchsound->play();
             case 'W':
             case 'w':
             case KEY_UP:
