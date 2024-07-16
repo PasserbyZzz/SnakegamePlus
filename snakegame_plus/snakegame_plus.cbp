@@ -58,6 +58,8 @@
 		<Unit filename="../game.h" />
 		<Unit filename="../game_fun.cpp" />
 		<Unit filename="../game_fun.h" />
+		<Unit filename="../game_great.cpp" />
+		<Unit filename="../game_great.h" />
 		<Unit filename="../game_pair.cpp" />
 		<Unit filename="../game_pair.h" />
 		<Unit filename="../main.cpp" />
@@ -65,6 +67,8 @@
 		<Unit filename="../snake.h" />
 		<Unit filename="../snake_fun.cpp" />
 		<Unit filename="../snake_fun.h" />
+		<Unit filename="../snake_great.cpp" />
+		<Unit filename="../snake_great.h" />
 		<Unit filename="../snake_pair.cpp" />
 		<Unit filename="../snake_pair.h" />
 		<Unit filename="game_pair.h" />

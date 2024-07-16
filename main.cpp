@@ -1,6 +1,7 @@
 #include "game.h"
 #include "game_fun.h"
 #include "game_pair.h"
+#include "game_great.h"
 #include "curses.h"
 #include "color.h""
 #include <string>
@@ -107,9 +108,32 @@ int main(int argc, char** argv)
         delete sound1;
     }
 
-    else if (mode == 3) {
+    else {
+        //输入玩家姓名
+        string s = enterName();
+        backgroundMusic1->stop();
+        sound1->play();
 
+        //播放游戏阶段的音乐
+        sf::Music* backgroundMusic2 = gameMusic("African_fun_long.ogg");
+        backgroundMusic2->play();
+
+        //生成相应游戏
+        Game_great game_great;
+        game_great.setName(s);
+        game_great.startGame();
+        backgroundMusic2->stop();
+
+        if (game_great.getBack()) {
+            music = true;
+            goto action;
+        }
+
+        delete backgroundMusic1;
+        delete backgroundMusic2;
+        delete sound1;
     }
+
 
     return 0;
 }

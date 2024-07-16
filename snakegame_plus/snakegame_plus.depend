@@ -610,7 +610,7 @@
 	"game_fun.h"
 	"color.h"
 
-1721134888 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.cpp
+1721135246 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.cpp
 	<string>
 	<cstdlib>
 	<ctime>
@@ -647,4 +647,34 @@
 	"curses.h"
 	"color.h"
 	"game_pair.h"
+
+1721135823 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<string>
+	<chrono>
+	<thread>
+	<fstream>
+	<algorithm>
+	"game_great.h"
+	"color.h"
+
+1721135823 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<string>
+	"snake_great.h"
+
+1721135823 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_great.h
+	<vector>
+
+1721135823 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_great.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake_great.h"
 
