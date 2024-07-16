@@ -6,7 +6,6 @@
     - [Part II. Two Players mode](#part-ii-two-players-mode)
     - [Part III. Just Eat](#part-iii-just-eat)
     - [Part IV. Entertainment mode](#part-iv-entertainment-mode)
-      - [Enjoy our game😊!](#enjoy-our-game)
 
 ## Brief Introduction
 An advanced version based on the fundamental edition of the snakegame.
