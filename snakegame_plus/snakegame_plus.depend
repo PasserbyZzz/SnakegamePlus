@@ -610,17 +610,19 @@
 	"game_fun.h"
 	"color.h"
 
-1721131211 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.cpp
+1721134888 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.cpp
 	<string>
 	<cstdlib>
 	<ctime>
 	<iostream>
 	"snake_pair.h"
+	"color.h"
 
-1721133935 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.h
+1721135062 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.h
 	<vector>
+	<SFML/Audio.hpp>
 
-1721133935 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_pair.h
+1721134630 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_pair.h
 	"curses.h"
 	<string>
 	<vector>
@@ -629,7 +631,7 @@
 	<SFML/Audio.hpp>
 	"snake_pair.h"
 
-1721133935 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_pair.cpp
+1721134735 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_pair.cpp
 	<string>
 	<iostream>
 	<cmath>

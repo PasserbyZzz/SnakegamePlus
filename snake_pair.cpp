@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "snake_pair.h"
+#include "color.h"
 
 SnakeBodyPair::SnakeBodyPair()
 {
@@ -38,6 +39,17 @@ SnakePair::SnakePair(int gameBoardWidth, int gameBoardHeight, int initialSnakeLe
     this->initializeSnake();
     this->setRandomSeed();
     num = -num;
+
+    this->travelsound = gameSound("travel_through_wormhole.wav");
+    this->foodsound = gameSound("game_bonus.wav");
+    this->movesound = gameSound("snake_move.wav");
+}
+
+SnakePair::~SnakePair()
+{
+    //delete travelsound;
+    //delete foodsound;
+    //delete movesound;
 }
 
 void SnakePair::setRandomSeed()
@@ -197,31 +209,38 @@ int SnakePair::touchThing(int &x)
 
     if (op == true)
     {
+        this->foodsound->play();
         return 1;
-    };
+    }
 
     if (this->Gate[0] == newHead)
     {
+        this->travelsound->play();
         return 2;
     }
     else if (this->Gate[1] == newHead)
     {
+        this->travelsound->play();
         return 3;
     }
     else if (this->Gate[2] == newHead)
     {
+        this->travelsound->play();
         return 4;
     }
     else if (this->Gate[3] == newHead)
     {
+        this->travelsound->play();
         return 5;
     }
     else if (this->Gate[4] == newHead)
     {
+        this->travelsound->play();
         return 6;
     }
     else if (this->Gate[5] == newHead)
     {
+        this->travelsound->play();
         return 7;
     }
     else
@@ -275,6 +294,7 @@ bool SnakePair::changeDirection(DirectionPair newDirection)
         {
             if (newDirection == DirectionPair::Left || newDirection == DirectionPair::Right)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }
@@ -287,6 +307,7 @@ bool SnakePair::changeDirection(DirectionPair newDirection)
         {
             if (newDirection == DirectionPair::Left || newDirection == DirectionPair::Right)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }
@@ -299,6 +320,7 @@ bool SnakePair::changeDirection(DirectionPair newDirection)
         {
             if (newDirection == DirectionPair::Up || newDirection == DirectionPair::Down)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }
@@ -311,6 +333,7 @@ bool SnakePair::changeDirection(DirectionPair newDirection)
         {
             if (newDirection == DirectionPair::Up || newDirection == DirectionPair::Down)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }

@@ -45,7 +45,6 @@ GamePair::GamePair()
     initColors();
 
     this->pausesound = gameSound("game_start.wav");
-    this->movesound = gameSound("snake_move.wav");
     this->deadsound = gameSound("game_over.wav");
     this->switchsound = gameSound("light_switch.wav");
 }
@@ -57,7 +56,7 @@ GamePair::~GamePair()
         int a = delwin(this->mWindows[i]);
     }
     endwin();
-    delete movesound;
+
     delete deadsound;
     delete pausesound;
     delete switchsound;
@@ -191,6 +190,7 @@ int GamePair::renderRestartMenu(int k) const
         wrefresh(menu);
         if (key == ' ' || key == 10)
         {
+            this->pausesound->play();
             break;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -265,6 +265,7 @@ int GamePair::renderPauseMenu() const
         wrefresh(menu);
         if (key == ' ' || key == 10)
         {
+            this->pausesound->play();
             break;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -490,28 +491,24 @@ bool GamePair::controlSnake1()
         case 'W':
         case 'w':
         {
-            this->movesound->play();
             this->mPtrSnake1->changeDirection(DirectionPair::Up);
             break;
         }
         case 'S':
         case 's':
         {
-            this->movesound->play();
             this->mPtrSnake1->changeDirection(DirectionPair::Down);
             break;
         }
         case 'A':
         case 'a':
         {
-            this->movesound->play();
             this->mPtrSnake1->changeDirection(DirectionPair::Left);
             break;
         }
         case 'D':
         case 'd':
         {
-            this->movesound->play();
             this->mPtrSnake1->changeDirection(DirectionPair::Right);
             break;
         }
@@ -540,28 +537,24 @@ bool GamePair::controlSnake2()
 
     if (k1 & 0x8000)
     {
-        this->movesound->play();
         this->mPtrSnake2->changeDirection(DirectionPair::Up);
         return true;
     };
 
     if (k2 & 0x8000)
     {
-        this->movesound->play();
         this->mPtrSnake2->changeDirection(DirectionPair::Down);
         return true;
     };
 
     if (k3 & 0x8000)
     {
-        this->movesound->play();
         this->mPtrSnake2->changeDirection(DirectionPair::Left);
         return true;
     };
 
     if (k4 & 0x8000)
     {
-        this->movesound->play();
         this->mPtrSnake2->changeDirection(DirectionPair::Right);
         return true;
     };
@@ -686,8 +679,8 @@ int GamePair::runGame()
                 this->backToMenu = true;
                 break;
             }
-        };
-    };
+        }
+    }
 
     return key;
 }

@@ -2,6 +2,7 @@
 #define SNAKE_PAIR_H
 
 #include <vector>
+#include <SFML/Audio.hpp>
 
 static int num = 1;
 
@@ -32,6 +33,7 @@ class SnakePair
 public:
     //Snake();
     SnakePair(int gameBoardWidth, int gameBoardHeight, int initialSnakeLength);
+    ~SnakePair();
     // Set random seed
     void setRandomSeed();
     // Initialize snake
@@ -72,6 +74,10 @@ private:
     std::vector<SnakeBodyPair> mSnake;
     std::vector<SnakeBodyPair> Gate;
     std::vector<SnakeBodyPair> Obstacle;
+
+    sf::Sound* foodsound;
+    sf::Sound* travelsound;
+    sf::Sound* movesound;
 };
 
 #endif

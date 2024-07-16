@@ -104,7 +104,6 @@ private:
     time_t pause_time1;
     int pause_time2;
 
-    sf::Sound* movesound;
     sf::Sound* deadsound;
     sf::Sound* pausesound;
     sf::Sound* switchsound;
