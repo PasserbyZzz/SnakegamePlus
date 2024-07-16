@@ -56,9 +56,14 @@
 		<Unit filename="../curses.h" />
 		<Unit filename="../game.cpp" />
 		<Unit filename="../game.h" />
+		<Unit filename="../game_fun.cpp" />
+		<Unit filename="../game_fun.h" />
 		<Unit filename="../main.cpp" />
 		<Unit filename="../snake.cpp" />
 		<Unit filename="../snake.h" />
+		<Unit filename="../snake_fun.cpp" />
+		<Unit filename="../snake_fun.h" />
+		<Unit filename="snake_fun.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

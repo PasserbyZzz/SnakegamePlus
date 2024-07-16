@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <cmath>
+#include <string>
 
 // For terminal delay
 #include <chrono>
@@ -8,15 +9,14 @@
 
 #include <fstream>
 #include <algorithm>
-#include <SFML/Audio.hpp>
 
-#include "game.h"
+#include "game_fun.h"
 #include "color.h"
 
 using namespace std;
 
-//¹¹Ôìº¯Êý
-Game::Game()
+//ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+GameFun::GameFun()
 {
     // Separate the screen to three windows
     this->mWindows.resize(3);
@@ -42,7 +42,6 @@ Game::Game()
     this->mLeaderBoard.assign(this->mNumLeaders, 0);
     this->mNameBoard.assign(this->mNumLeaders, "None");
 
-    //Initialize the color
     initColors();
 
     //Initialize the sound
@@ -52,69 +51,64 @@ Game::Game()
     this->switchsound = gameSound("light_switch.wav");
 }
 
-//Îö¹¹º¯Êý
-Game::~Game()
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+GameFun::~GameFun()
 {
-
     for (int i = 0; i < this->mWindows.size(); i ++)
     {
         delwin(this->mWindows[i]);
     }
     endwin();
-    delete movesound;
-    delete deadsound;
-    delete pausesound;
-    delete switchsound;
 }
 
-//´´½¨¼ò½éÀ¸
-void Game::createInformationBoard()
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void GameFun::createInformationBoard()
 {
     int startY = 0;
     int startX = 0;
     this->mWindows[0] = newwin(this->mInformationHeight, this->mScreenWidth, startY, startX);
 }
 
-//ÏÔÊ¾¼ò½é
-void Game::renderInformationBoard() const
+//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½
+void GameFun::renderInformationBoard() const
 {
-    string name =  "Player: " + this->mName + "!";
+    string name =  "Player: " + this->mName + "!"; //changed by qjc
 
     if (!this->mAttempt)
         mvwprintw(this->mWindows[0], 1, 1, "Welcome to The Snake Game.");
     else
         mvwprintw(this->mWindows[0], 1, 1, "Welcome Back! Good Luck This Time.");
 
-    mvwprintw(this->mWindows[0], 2, 1, name.c_str());
+    mvwprintw(this->mWindows[0], 2, 1,  name.c_str());
     mvwprintw(this->mWindows[0], 3, 1, "Website: https://github.com/PasserbyZzz/SnakegamePlus");
     mvwprintw(this->mWindows[0], 4, 1, "Team Members: DZX, QJC and XKY");
     wrefresh(this->mWindows[0]);
 }
 
-//´´½¨ÓÎÏ·À¸
-void Game::createGameBoard()
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½
+void GameFun::createGameBoard()
 {
     int startY = this->mInformationHeight;
     int startX = 0;
     this->mWindows[1] = newwin(this->mScreenHeight - this->mInformationHeight, this->mScreenWidth - this->mInstructionWidth, startY, startX);
 }
 
-//ÏÔÊ¾ÓÎÏ·´°¿Ú
-void Game::renderGameBoard() const
+//ï¿½ï¿½Ê¾ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
+void GameFun::renderGameBoard() const
 {
     wrefresh(this->mWindows[1]);
 }
 
-//´´½¨ÌáÊ¾À¸
-void Game::createInstructionBoard()
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
+void GameFun::createInstructionBoard()
 {
     int startY = this->mInformationHeight;
     int startX = this->mScreenWidth - this->mInstructionWidth;
     this->mWindows[2] = newwin(this->mScreenHeight - this->mInformationHeight, this->mInstructionWidth, startY, startX);
 }
 
-//ÏÔÊ¾ÌáÊ¾
-void Game::renderInstructionBoard() const
+//ï¿½ï¿½Ê¾ï¿½ï¿½Ê¾
+void GameFun::renderInstructionBoard() const
 {
     mvwprintw(this->mWindows[2], 1, 1, "Manual");
 
@@ -125,33 +119,35 @@ void Game::renderInstructionBoard() const
 
     mvwprintw(this->mWindows[2], 8, 1, "Difficulty");
     mvwprintw(this->mWindows[2], 11, 1, "Points");
+    mvwprintw(this->mWindows[2], 14, 1, "Steps Left"); //changed by qjc
 
     wrefresh(this->mWindows[2]);
 }
 
-//ÏÔÊ¾ÅÅÐÐ°ñ
-void Game::renderLeaderBoard() const
+//changed by qjcï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½ï¿½Î»ï¿½Ã´ï¿½14ï¿½Äµï¿½ï¿½ï¿½17ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½this->this->mScreenHeight - this->mInformationHeight - 17 -2ï¿½Ðµï¿½-2É¾ï¿½ï¿½
+//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ð°ï¿½
+void GameFun::renderLeaderBoard() const
 {
     // If there is not too much space, skip rendering the leader board
-    if (this->mScreenHeight - this->mInformationHeight - 14 - 2 < 3 * 2)
+    if (this->mScreenHeight - this->mInformationHeight - 17 < 3 * 2)
     {
         return;
     }
-    mvwprintw(this->mWindows[2], 14, 1, "Leader Board");
+    mvwprintw(this->mWindows[2], 17, 1, "Leader Board");
     std::string pointnameString;
     std::string rank;
-    for (int i = 0; i < std::min(this->mNumLeaders, this->mScreenHeight - this->mInformationHeight - 14 - 2); i ++)
+    for (int i = 0; i < std::min(this->mNumLeaders, this->mScreenHeight - this->mInformationHeight - 17 - 2); i ++)
     {
         pointnameString = std::to_string(this->mLeaderBoard[i]) + " --" + this->mNameBoard[i];
         rank = "#" + std::to_string(i + 1) + ":";
-        mvwprintw(this->mWindows[2], 14 + (i + 1), 1, rank.c_str());
-        mvwprintw(this->mWindows[2], 14 + (i + 1), 5, pointnameString.c_str());
+        mvwprintw(this->mWindows[2], 17 + (i + 1), 1, rank.c_str());
+        mvwprintw(this->mWindows[2], 17 + (i + 1), 5, pointnameString.c_str());
     }
     wrefresh(this->mWindows[2]);
 }
 
-//ÓÎÏ·½áÊøºó£¬ÈÃÓÃ»§Ñ¡ÔñRestart»¹ÊÇQuit
-int Game::renderRestartMenu() const
+//ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ñ¡ï¿½ï¿½Restartï¿½ï¿½ï¿½ï¿½Quit
+int GameFun::renderRestartMenu() const
 {
     WINDOW * menu;
     int width = this->mGameBoardWidth * 0.5;
@@ -226,8 +222,8 @@ int Game::renderRestartMenu() const
     return index;
 }
 
-//ÓÎÏ·ÔÝÍ£ºó£¬ÈÃÓÃ»§Ñ¡ÔñContinue»¹ÊÇQuit
-int Game::renderPauseMenu() const
+//ï¿½ï¿½Ï·ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ñ¡ï¿½ï¿½Continueï¿½ï¿½ï¿½ï¿½Quit
+int GameFun::renderPauseMenu() const
 {
     WINDOW * menu;
     int width = this->mGameBoardWidth * 0.5;
@@ -303,63 +299,113 @@ int Game::renderPauseMenu() const
     return index;
 }
 
-//ÐÞ¸Ä·ÖÊý£¬²¢ÏÔÊ¾ÔÚÌáÊ¾À¸
-void Game::renderPoints() const
+//ï¿½Þ¸Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
+void GameFun::renderPoints() const
 {
     std::string pointString = std::to_string(this->mPoints);
     mvwprintw(this->mWindows[2], 12, 1, pointString.c_str());
     wrefresh(this->mWindows[2]);
 }
 
-//ÐÞ¸ÄÄÑ¶È£¬²¢ÏÔÊ¾ÔÚÌáÊ¾À¸
-void Game::renderDifficulty() const
+//ï¿½Þ¸ï¿½ï¿½Ñ¶È£ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
+void GameFun::renderDifficulty() const
 {
     std::string difficultyString = std::to_string(this->mDifficulty);
     mvwprintw(this->mWindows[2], 9, 1, difficultyString.c_str());
     wrefresh(this->mWindows[2]);
 }
 
-//³õÊ¼»¯ÓÎÏ·½çÃæ
-void Game::initializeGame()
+//changed by qjc
+//ï¿½Þ¸ï¿½CDÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
+void GameFun::renderCD() const
 {
-    this->mPtrSnake.reset(new Snake(this->mGameBoardWidth, this->mGameBoardHeight, this->mInitialSnakeLength));
+    int CD = maxMove - this->mCnt;
+    std::string CDString;
+    if (CD > 10) CDString = std::to_string(CD / 10 * 10) + " "; //ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½Û¾ï¿½ï¿½ï¿½
+    else {
+        CDString = "0"+ std::to_string(CD)+ " ";
+        CDString = CDString.substr(0,2); //È¥ï¿½ï¿½Ä©Î²ï¿½ï¿½0
+    }
+    mvwprintw(this->mWindows[2], 15, 1, CDString.c_str());
+    wrefresh(this->mWindows[2]);
+}
+
+//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
+void GameFun::initializeGame()
+{
+    this->mPtrSnake.reset(new SnakeFun(this->mGameBoardWidth, this->mGameBoardHeight, this->mInitialSnakeLength));
+    this->mFood.clear();  //ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Öµï¿½Ê³ï¿½ï¿½
+    this->mScore.clear();
     this->createRamdonFood();
-    this->mPtrSnake->senseFood(this->mFood);
-    this->createRandomGate();
-    this->createRandomGate();
-    this->createRandomGate();
-    this->mPtrSnake->senseGate(this->Gate[0], this->Gate[1], this->Gate[2], this->Gate[3], this->Gate[4], this->Gate[5]);
+
+    //É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //this->createRandomGate();
+    //this->createRandomGate();
+    //this->createRandomGate();
+    //this->mPtrSnake->senseGate(this->Gate[0], this->Gate[1], this->Gate[2], this->Gate[3], this->Gate[4], this->Gate[5]);
+
+
+    this->mObstacle.clear(); //changed by qjc ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½Ê¼Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
+    this->createRandomObstacle(); //changed by qjc ï¿½Ë´ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½senseï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½sense
+    this->water.clear();
+    this->createRandomWater(this->numOfWaters);
     this->mDifficulty = 0;
     this->mPoints = 0;
     this->mCnt = 0;
     this->mDelay = this->mBaseDelay;
 }
 
-//Ëæ»úÉú³ÉÊ³Îï
-void Game::createRamdonFood()
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê³ï¿½ï¿½Ä·ï¿½Öµï¿½ï¿½0.5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª1,0.3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª2,0.15ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª3,0.05ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª5
+int GameFun::generateRandomNumber() {
+    double randValue = (double)rand() / RAND_MAX; // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½0ï¿½ï¿½1Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    if (randValue < 0.5) {
+        return 1;
+    } else if (randValue < 0.7) {
+        return 2;
+    } else if (randValue < 0.9) {
+        return 3;
+    } else {
+        return 5;
+    }
+}
+
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê³ï¿½ï¿½
+void GameFun::createRamdonFood()
 {
-    std::vector<SnakeBody> availableGrids;
+    int dropout = 0.5;
     for (int i = 1; i < this->mGameBoardHeight - 1; i ++)
     {
         for (int j = 1; j < this->mGameBoardWidth - 1; j ++)
         {
-            if(this->mPtrSnake->isPartOfSnake(j, i))
+            //ï¿½ï¿½ï¿½É¸ï¿½ï¿½ï¿½Îª0.05
+            int whethertodropout = rand() % 20;
+
+
+            if (whethertodropout) {
+                continue;
+            }
+
+            //changed by qjc
+            if(this->mPtrSnake->isPartOfSnake(j, i) || this->mPtrSnake->isPartOfFood(j, i) || this->mPtrSnake->isPartOfObstacle(j, i) || isPartOfWater(j, i))
             {
                 continue;
             }
+
             else
             {
-                availableGrids.push_back(SnakeBody(j, i));
+                int random_score = generateRandomNumber();
+                SnakeBodyFun Food = SnakeBodyFun(j,i);
+                this->mFood.push_back(Food);
+                this->mScore.push_back(random_score);
+                this->mPtrSnake->senseFood(Food, random_score);
             }
         }
     }
-
-    // Randomly select a grid that is not occupied by the snake
-    int random_idx = std::rand() % availableGrids.size();
-    this->mFood = availableGrids[random_idx];
 }
 
-void Game::createRandomGate()
+
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É´ï¿½ï¿½ï¿½ï¿½ï¿½
+void GameFun::createRandomGate()
 {
     int x1 = (rand() % (this->mGameBoardWidth - 2)) + 1;
     int y1 = (rand() % (this->mGameBoardHeight - 2)) + 1;
@@ -372,27 +418,109 @@ void Game::createRandomGate()
         x2 = (rand() % (this->mGameBoardWidth - 2)) + 1;
         y2 = (rand() % (this->mGameBoardHeight - 2)) + 1;
     }
-    SnakeBody Gate1 = SnakeBody(x1,y1);
-    SnakeBody Gate2 = SnakeBody(x2,y2);
+    SnakeBodyFun Gate1 = SnakeBodyFun(x1,y1);
+    SnakeBodyFun Gate2 = SnakeBodyFun(x2,y2);
     this->Gate.push_back(Gate1);
     this->Gate.push_back(Gate2);
 }
 
-//ÏÔÊ¾Ê³Îï
-void Game::renderFood_first() const
+
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï£¬ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¸ï¿½Öªï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//changed by qjcï¿½ï¿½
+void GameFun::createRandomObstacle()
 {
-    mvwaddch(this->mWindows[1], this->mFood.getY(), this->mFood.getX(), this->mFoodSymbol_first);
+    int currentObstaclenum = 0;
+    while (currentObstaclenum < this->numOfObstacles) {
+        int x1 = (rand() % (this->mGameBoardWidth - 2)) + 1;
+        int y1 = (rand() % (this->mGameBoardHeight - 2)) + 1;
+
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
+        int x2 = x1 - 1;
+        int y2 = y1;
+
+        //Òªï¿½ï¿½Ö¤x2ï¿½ï¿½y2ï¿½Ú·ï¿½Î§ï¿½ï¿½
+        if (x2 <= 0 || x2 >= this->mGameBoardWidth - 1 || y2 <= 0 || y2 >= mGameBoardHeight) {
+            continue;
+        }
+        //ï¿½ï¿½Ö¤ï¿½ï¿½x1,y1Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½Ï°ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ø¸ï¿½
+        if (this->mPtrSnake->isPartOfSnake(x1,y1) || this->mPtrSnake->isPartOfFood(x1,y1) || this->mPtrSnake->isPartOfObstacle(x1,y1)) {
+            continue; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Ò»ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½Ê³ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï£¬ï¿½Ç¾ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
+        }
+        //ï¿½ï¿½Ö¤ï¿½ï¿½x2,y2Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½Ï°ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ø¸ï¿½
+        if (this->mPtrSnake->isPartOfSnake(x2,y2) || this->mPtrSnake->isPartOfFood(x2,y2) || this->mPtrSnake->isPartOfObstacle(x2,y2)) {
+            continue; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Ò»ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½Ê³ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï£¬ï¿½Ç¾ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
+        }
+
+        SnakeBodyFun oneObstacle1 = SnakeBodyFun(x1, y1);
+        SnakeBodyFun oneObstacle2 = SnakeBodyFun(x2, y2);
+        this->mObstacle.push_back(oneObstacle1);
+        this->mObstacle.push_back(oneObstacle2);
+        this->mPtrSnake->senseObstacle(oneObstacle1);
+        this->mPtrSnake->senseObstacle(oneObstacle2);
+        currentObstaclenum++;
+    }
+}
+
+
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½Ã²
+//changed by qjc
+void GameFun::createRandomWater(int num)
+{
+    int currentWaternum = 0;
+    while (currentWaternum < num) {
+        int x1 = (rand() % (this->mGameBoardWidth - 2)) + 1;
+        int y1 = (rand() % (this->mGameBoardHeight - 2)) + 1;
+        if (this->mPtrSnake->isPartOfSnake(x1,y1) || this->mPtrSnake->isPartOfFood(x1,y1) || this->mPtrSnake->isPartOfObstacle(x1,y1) || this->isPartOfWater(x1, y1)) {
+            continue; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Ò»ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½Ê³ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï£¬ï¿½Ç¾ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
+        }
+        SnakeBodyFun oneWater = SnakeBodyFun(x1, y1);
+        this->water.push_back(oneWater);
+        currentWaternum++;
+    }
+}
+
+//ï¿½ï¿½Ê¾Ê³ï¿½ï¿½
+void GameFun::renderFood_first() const
+{
+    for (int i = 0; i < this->mFood.size(); i++) {
+        if (mScore[i] == 1) {
+            wattron(this->mWindows[1], COLOR_PAIR(8));
+            mvwaddch(this->mWindows[1], this->mFood[i].getY(), this->mFood[i].getX(), mFoodSymbol_first);
+            wattroff(this->mWindows[1], COLOR_PAIR(8));
+        }
+
+        if (mScore[i] == 2) {
+            wattron(this->mWindows[1], COLOR_PAIR(9));
+            mvwaddch(this->mWindows[1], this->mFood[i].getY(), this->mFood[i].getX(), mFoodSymbol_first);
+            wattroff(this->mWindows[1], COLOR_PAIR(9));
+        }
+
+        if (mScore[i] == 3) {
+            wattron(this->mWindows[1], COLOR_PAIR(10));
+            mvwaddch(this->mWindows[1], this->mFood[i].getY(), this->mFood[i].getX(), mFoodSymbol_first);
+            wattroff(this->mWindows[1], COLOR_PAIR(10));
+        }
+
+        if (mScore[i] == 5) {
+            wattron(this->mWindows[1], COLOR_PAIR(11));
+            mvwaddch(this->mWindows[1], this->mFood[i].getY(), this->mFood[i].getX(), mFoodSymbol_first);
+            wattroff(this->mWindows[1], COLOR_PAIR(11));
+        }
+    }
     wrefresh(this->mWindows[1]);
 }
 
-//Ê³Îï¼´½«ÏûÊ§
+//Ê³ï¿½ï¼´ï¿½ï¿½ï¿½ï¿½Ê§
+/*
 void Game::renderFood_final() const
 {
     mvwaddch(this->mWindows[1], this->mFood.getY(), this->mFood.getX(), this->mFoodSymbol_final);
     wrefresh(this->mWindows[1]);
 }
+*/
 
-void Game::renderGate() const
+//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void GameFun::renderGate() const
 {
     wattron(this->mWindows[1], COLOR_PAIR(3));
     mvwaddch(this->mWindows[1], this->Gate[0].getY(), this->Gate[0].getX(), this->mGateSymbol);
@@ -412,32 +540,61 @@ void Game::renderGate() const
     wrefresh(this->mWindows[1]);
 }
 
-//ÏÔÊ¾Éß
-void Game::renderSnake() const {
+//ï¿½ï¿½Ê¾ï¿½Ï°ï¿½ï¿½ï¿½
+//changed by qjc
+void GameFun::renderObstacle() const
+{
+    wattron(this->mWindows[1], COLOR_PAIR(6));
+    for (SnakeBodyFun oneObstacle: this->mObstacle) {
+        mvwaddch(this->mWindows[1], oneObstacle.getY(), oneObstacle.getX(), this->mObstacleSymbol);
+    }
+    wattroff(this->mWindows[1], COLOR_PAIR(6));
+    wrefresh(this->mWindows[1]);
+}
+
+void GameFun::renderWater() const
+{
+    wattron(this->mWindows[1], COLOR_PAIR(7));
+    for (SnakeBodyFun oneWater: this->water) {
+        mvwaddch(this->mWindows[1], oneWater.getY(), oneWater.getX(), this->mWaterSymbol);
+    }
+    wattroff(this->mWindows[1], COLOR_PAIR(7));
+    wrefresh(this->mWindows[1]);
+}
+
+//ï¿½ï¿½Ê¾ï¿½ï¿½
+void GameFun::renderSnake() const {
     int snakeLength = this->mPtrSnake->getLength();
-    const std::vector<SnakeBody>& snake = this->mPtrSnake->getSnake();  // ÐÞ¸ÄÎªconstÒýÓÃ£¬±ÜÃâ²»±ØÒªµÄ¸´ÖÆ
+    const std::vector<SnakeBodyFun>& snake = this->mPtrSnake->getSnake();  // ï¿½Þ¸ï¿½Îªconstï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½â²»ï¿½ï¿½Òªï¿½Ä¸ï¿½ï¿½ï¿½
 
     for (int i = 0; i < snakeLength; i++) {
-        if (i % 2 == 0) {
-            wattron(this->mWindows[1], COLOR_PAIR(2));  // ÆôÓÃÂÌÉ«
+        //changed by qjc: ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½Û²ï¿½
+        if (this->mPtrSnake->checkInvinStatus()) {
+            wattron(this->mWindows[1], COLOR_PAIR(5));  // ï¿½ï¿½ï¿½Ã»ï¿½É«
+        }
+        else if (i % 2 == 0) {
+            wattron(this->mWindows[1], COLOR_PAIR(2));  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
         } else {
-            wattron(this->mWindows[1], COLOR_PAIR(1));  // ÆôÓÃ°×É«
+            wattron(this->mWindows[1], COLOR_PAIR(1));  // ï¿½ï¿½ï¿½Ã°ï¿½É«
         }
 
         mvwaddch(this->mWindows[1], snake[i].getY(), snake[i].getX(), this->mSnakeSymbol);
 
+        if (this->mPtrSnake->checkInvinStatus()) {
+            wattroff(this->mWindows[1], COLOR_PAIR(5));  // ï¿½Ø±Õ»ï¿½É«
+        }
         if (i % 2 == 0) {
-            wattroff(this->mWindows[1], COLOR_PAIR(2));  // ¹Ø±ÕÂÌÉ«
+            wattroff(this->mWindows[1], COLOR_PAIR(2));  // ï¿½Ø±ï¿½ï¿½ï¿½É«
         } else {
-            wattroff(this->mWindows[1], COLOR_PAIR(1));  // ¹Ø±Õ°×É«
+            wattroff(this->mWindows[1], COLOR_PAIR(1));  // ï¿½Ø±Õ°ï¿½É«
         }
     }
 
     wrefresh(this->mWindows[1]);
 }
 
-//Íæ¼ÒÍ¨¹ý¼üÅÌ¿ØÖÆÉßµÄÒÆ¶¯·½Ïò
-bool Game::controlSnake() const
+//ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
+bool GameFun::controlSnake()
 {
     int key;
     key = getch();
@@ -448,7 +605,7 @@ bool Game::controlSnake() const
         case KEY_UP:
         {
             this->movesound->play();
-            this->mPtrSnake->changeDirection(Direction::Up);
+            this->mPtrSnake->changeDirection(DirectionFun::Up);
             break;
         }
         case 'S':
@@ -456,7 +613,7 @@ bool Game::controlSnake() const
         case KEY_DOWN:
         {
             this->movesound->play();
-            this->mPtrSnake->changeDirection(Direction::Down);
+            this->mPtrSnake->changeDirection(DirectionFun::Down);
             break;
         }
         case 'A':
@@ -464,7 +621,7 @@ bool Game::controlSnake() const
         case KEY_LEFT:
         {
             this->movesound->play();
-            this->mPtrSnake->changeDirection(Direction::Left);
+            this->mPtrSnake->changeDirection(DirectionFun::Left);
             break;
         }
         case 'D':
@@ -472,9 +629,23 @@ bool Game::controlSnake() const
         case KEY_RIGHT:
         {
             this->movesound->play();
-            this->mPtrSnake->changeDirection(Direction::Right);
+            this->mPtrSnake->changeDirection(DirectionFun::Right);
             break;
         }
+        case 'Y':
+        case 'y':
+        {
+            this->mPtrSnake->setInvin(); //changed by qjc
+            break;
+        }
+        /*
+        case 'H':
+        case 'h':
+        {
+            this->setSlippery();
+            break;
+        }
+        */
         case ' ':
         {
             this->pausesound->play();
@@ -489,8 +660,8 @@ bool Game::controlSnake() const
     return true;
 }
 
-//Ë¢ÐÂ´°¿Ú »æÖÆÈý¸ö´°¿Ú
-void Game::renderBoards() const
+//Ë¢ï¿½Â´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void GameFun::renderBoards() const
 {
     for (int i = 0; i < this->mWindows.size(); i ++)
     {
@@ -507,8 +678,28 @@ void Game::renderBoards() const
     this->renderLeaderBoard();
 }
 
-//¸Ä±äÓÎÏ·ÄÑ¶È£¬Ã¿µÃ5·ÖÄÑ¶È+1£»·ÖÊý±»5Õû³ýµÄÊ±ºòÓÎÏ·¼ÓËÙ
-void Game::adjustDelay()
+
+//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ë®ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+bool GameFun::isPartOfWater(int x, int y) const {
+    SnakeBodyFun tmp = SnakeBodyFun(x, y);
+    for (SnakeBodyFun oneWater: water) {
+        if (oneWater == tmp) return true;
+    }
+    return false;
+}
+
+int GameFun::FindIndexWater(int x, int y) const {
+    SnakeBodyFun tmp = SnakeBodyFun(x, y);
+    int index = 0;
+    for (SnakeBodyFun oneWater: water) {
+        if (oneWater == tmp) return index;
+        index++;
+    }
+    return -1;
+}
+
+//ï¿½Ä±ï¿½ï¿½ï¿½Ï·ï¿½Ñ¶È£ï¿½Ã¿ï¿½ï¿½5ï¿½ï¿½ï¿½Ñ¶ï¿½+1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
+void GameFun::adjustDelay()
 {
     this->mDifficulty = this->mPoints / 5;
     if (mPoints % 5 == 0)
@@ -517,14 +708,32 @@ void Game::adjustDelay()
     }
 }
 
-//ÔËÐÐÓÎÏ·
-void Game::runGame()
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·
+void GameFun::runGame()
 {
     action:
     int suspend = 0;
+    mCnt = 0; //ï¿½Þ¶ï¿½Ò»ï¿½ï¿½ï¿½Æ¶ï¿½500ï¿½ï¿½
 
     while (true)
     {
+        if (mCnt == this->maxMove) {
+            break;
+        }
+
+        //ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½
+        //changed by qjc
+        SnakeBodyFun head = this->mPtrSnake->getSnake()[0];
+        if (isPartOfWater(head.getX(), head.getY())) {
+            int index = FindIndexWater(head.getX(), head.getY());
+            water.erase(water.begin()+index); //É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½Ë®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Ë®ï¿½ï¿½
+            setSlippery();
+            createRandomWater(1);
+        }
+        dicrSlipperyTime();
+        resetSlippery();
+
+
         bool x = this->controlSnake();
         if (!x)
         {
@@ -535,31 +744,43 @@ void Game::runGame()
         box(this->mWindows[1], 0, 0);
 
         bool eatFood = this->mPtrSnake->moveFoward();
+        int index(0);
+        this->mPtrSnake->touchFoodIndex(index);
+
         bool collision = this->mPtrSnake->checkCollision();
         if (collision == true)
         {
             this->deadsound->play();
             break;
         }
-        this->renderGate();
-        this->renderSnake();
+
+
+
         if (eatFood == true)
         {
-            this->mPoints += 1;
-            this->mCnt = 0;
-            this->createRamdonFood();
-            this->mPtrSnake->senseFood(this->mFood);
+            this->mPoints += mScore[index]; //×¢ï¿½ï¿½ï¿½Ç³Ôµï¿½ï¿½Ä¸ï¿½Ê³ï¿½ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½
+            if (mScore[index] == 2) {
+                setSlippery();
+            }
+            this->mScore.erase(this->mScore.begin()+index);
+            this->mFood.erase(this->mFood.begin()+index);
+            this->mPtrSnake->senseFood(mFood, mScore);
+
             this->adjustDelay();
         }
 
-        //Ê³ÎïºÜ°²È«
-        if (this->mCnt <= 0.75 * (80 / sqrt(this->mDifficulty + 1))) {
-            this->renderFood_first();
-            this->renderDifficulty();
-            this->renderPoints();
-        }
+        this->renderObstacle(); //changed by qjc
+        this->renderWater();
+        this->renderCD();
+        //this->renderGate();
+        this->renderSnake();
+        //Ê³ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½Ü°ï¿½È«
+        this->renderFood_first();
+        this->renderDifficulty();
+        this->renderPoints();
 
-        //Ê³Îï¼´½«ÏûÊ§
+        /*
+        //Ê³ï¿½ï¼´ï¿½ï¿½ï¿½ï¿½Ê§
         if (this->mCnt > 0.75 * (80 / sqrt(this->mDifficulty + 1)) && this->mCnt <= (80 / sqrt(this->mDifficulty + 1))) {
             if (this->mCnt % 2) {
                 this->renderFood_first();
@@ -572,16 +793,29 @@ void Game::runGame()
                 this->renderPoints();
             }
         }
+        */
 
-        this->mCnt ++;
-        //Ê³ÎïÏûÊ§
+        //changed by qjc
+        //Îªï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ù¶È±ï¿½ï¿½ï¿½ï¿½ï¿½×·Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        int whetherCNT = 0;
+        if (whetherCNT == slippery-1) {
+            this->mCnt++;
+            whetherCNT = 0;
+        }
+        else {
+            whetherCNT++;
+        }
+
+        /*
+        //Ê³ï¿½ï¿½ï¿½ï¿½Ê§
         if (this->mCnt > (80 / sqrt(this->mDifficulty + 1)) ) {
             this->createRamdonFood();
             this->mCnt = 0;
             this->mPtrSnake->senseFood(this->mFood);
         }
+        */
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(this->mDelay));
+        std::this_thread::sleep_for(std::chrono::milliseconds(int(mRecreationDelay/slippery))); //changed by qjc
 
         refresh();
     }
@@ -590,32 +824,24 @@ void Game::runGame()
     {
         while (true)
         {
-            this->renderGate();
+            //this->renderGate();
             this->renderSnake();
             this->renderFood_first();
             this->renderDifficulty();
             this->renderPoints();
-            int y = this->renderPauseMenu();
-            if (y == 0)
+            bool y = this->renderPauseMenu();
+            if(y)
                 goto action;
-            else if (y == 2) {
-                this->exit = true;
+            else
                 break;
-            }
-            else {
-                this->exit = true;
-                this->backToMenu = true;
-                break;
-            }
         }
     }
 }
 
-//¿ªÊ¼ÓÎÏ·
-void Game::startGame()
-{
-    refresh();
-    int choice;
+//ï¿½ï¿½Ê¼ï¿½ï¿½Ï·
+void GameFun::startGame()
+{   refresh();
+    bool choice;
     while (true)
     {
         this->readLeaderBoard();
@@ -641,9 +867,9 @@ void Game::startGame()
     }
 }
 
-//¶ÁÈ¡ÀúÊ··ÖÊýÅÅÐÐ
+//ï¿½ï¿½È¡ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // https://en.cppreference.com/w/cpp/io/basic_fstream
-bool Game::readLeaderBoard()
+bool GameFun::readLeaderBoard()
 {
     std::fstream fhand(this->mRecordBoardFilePath, fhand.binary | fhand.in);
     if (!fhand.is_open())
@@ -662,8 +888,8 @@ bool Game::readLeaderBoard()
     return true;
 }
 
-//¶ÁÈ¡Íæ¼ÒÃûµ¥
-bool Game::readNameBoard()
+//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+bool GameFun::readNameBoard()
 {
     std::fstream fhand(this->mNameBoardFilePath, std::ios::binary | std::ios::in);
     if (!fhand.is_open())
@@ -676,7 +902,7 @@ bool Game::readNameBoard()
     {
         size_t length;
         fhand.read(reinterpret_cast<char*>(&length), sizeof(length));
-        if (fhand.eof()) break; // ·ÀÖ¹ÎÄ¼þÄ©Î²¶à¶ÁÒ»´Î
+        if (fhand.eof()) break; // ï¿½ï¿½Ö¹ï¿½Ä¼ï¿½Ä©Î²ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 
         std::string temp(length, '\0');
         fhand.read(&temp[0], length);
@@ -689,8 +915,8 @@ bool Game::readNameBoard()
     return true;
 }
 
-//¸üÐÂÅÅÐÐ°ñ
-bool Game::updateLeaderBoard()
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½
+bool GameFun::updateLeaderBoard()
 {
     bool updated = false;
     int newScore = this->mPoints;
@@ -712,8 +938,8 @@ bool Game::updateLeaderBoard()
     return updated;
 }
 
-//Ð´ÈëÀúÊ··ÖÊýÅÅÐÐ
-bool Game::writeLeaderBoard()
+//Ð´ï¿½ï¿½ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+bool GameFun::writeLeaderBoard()
 {
     // trunc: clear the data file
     std::fstream fhand(this->mRecordBoardFilePath, fhand.binary | fhand.trunc | fhand.out);
@@ -729,8 +955,8 @@ bool Game::writeLeaderBoard()
     return true;
 }
 
-//Ð´ÈëÍæ¼ÒÃûµ¥
-bool Game::writeNameBoard()
+//Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+bool GameFun::writeNameBoard()
 {
     // trunc: clear the data file
     std::fstream fhand(this->mNameBoardFilePath, std::ios::binary | std::ios::trunc | std::ios::out);
@@ -740,23 +966,24 @@ bool Game::writeNameBoard()
     }
     for (int i = 0; i < this->mNumLeaders; i++)
     {
-        // Ð´Èë×Ö·û´®³¤¶È
+        // Ð´ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         size_t length = this->mNameBoard[i].size();
         fhand.write(reinterpret_cast<const char*>(&length), sizeof(length));
-        // Ð´Èë×Ö·û´®ÄÚÈÝ
+        // Ð´ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         fhand.write(this->mNameBoard[i].c_str(), length);
     }
     fhand.close();
     return true;
 }
 
-//ÉèÖÃÍæ¼ÒÐÕÃû
-void Game::setName(string name)
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void GameFun::setName(string name)
 {
     this->mName = name;
 }
 
-bool Game::getBack() const
+bool GameFun::getBack() const
 {
     return this->backToMenu;
 }
+

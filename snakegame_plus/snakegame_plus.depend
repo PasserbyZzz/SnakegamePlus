@@ -7,15 +7,14 @@
 	"snake.h"
 	"color.h"
 
-1720948397 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.h
+1721115733 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake.h
 	<vector>
 	<SFML/Audio.hpp>
 
-1720966334 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
+1721116609 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.cpp
 	<string>
 	<iostream>
 	<cmath>
-	<stdlib.h>
 	<chrono>
 	<thread>
 	<fstream>
@@ -24,7 +23,7 @@
 	"game.h"
 	"color.h"
 
-1720966217 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
+1721116766 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
 	"curses.h"
 	<string>
 	<vector>
@@ -40,15 +39,16 @@
 	<wchar.h>
 	<stdbool.h>
 
-1720951204 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
+1721113763 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
 	"game.h"
+	"game_fun.h"
 	"curses.h"
 	"color.h"
 	<string>
 	<iostream>
 	<cstring>
 
-1720950907 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
+1721112731 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
 	"color.h"
 	"curses.h"
 	<windows.h>
@@ -575,4 +575,37 @@
 1720786599 d:\sfml-2.5.1\include\sfml\audio\soundfilewriter.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
+
+1721117415 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_fun.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake_fun.h"
+	"color.h"
+
+1721117407 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_fun.h
+	<vector>
+	<SFML/Audio.hpp>
+
+1721117407 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_fun.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<string>
+	<SFML/Audio.hpp>
+	"snake_fun.h"
+
+1721117407 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_fun.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<string>
+	<chrono>
+	<thread>
+	<fstream>
+	<algorithm>
+	"game_fun.h"
+	"color.h"
 

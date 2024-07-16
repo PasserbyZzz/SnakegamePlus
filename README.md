@@ -6,8 +6,6 @@
     - [Part II. Two Players mode](#part-ii-two-players-mode)
     - [Part III. Entertainment mode](#part-iii-entertainment-mode)
       - [Enjoy our game😊!](#enjoy-our-game)
-      
-
 
 ## Brief Introduction
 An advanced version based on the fundamental edition of the snakegame.
@@ -34,10 +32,10 @@ In this mode, P1 will control a blue and white snake, while P2 a red and white s
 
 ### Part III. Entertainment mode
 In this mode, you'll see a large amount of food with different values.
- - White food: 1 point
- - Blue: 2 points
- - Red: 3 points
- - Yellow: 5 points
+ - Magenta food: 1 point
+ - Red food: 2 points and a transitory acceleration
+ - Yellow food: 3 points
+ - Blue food: 5 points
   
   Obstacles, `Y` and `y` are reserved,  while portal gates are banned. Try to score as many as points as you can within the limited time.
 
