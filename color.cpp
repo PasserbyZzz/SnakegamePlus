@@ -126,7 +126,7 @@ int renderMenu()
     keypad(stdscr, TRUE); // 启用功能键
     curs_set(0); // 禁用光标
 
-    std::vector<std::string> menuItems = {"Single", "Pair", "Fun", "Quit"};
+    std::vector<std::string> menuItems = {"Single Player", "Two Players", "Just Eat", "Entertainment", "Quit"};
 
     attron(A_STANDOUT);
     mvprintw(LINES / 2 - 2, (COLS - strlen(menuItems[0].c_str())) / 2, menuItems[0].c_str());
@@ -137,6 +137,8 @@ int renderMenu()
     mvprintw(LINES / 2 - 0, (COLS - strlen(menuItems[2].c_str())) / 2, menuItems[2].c_str());
 
     mvprintw(LINES / 2 + 1, (COLS - strlen(menuItems[3].c_str())) / 2, menuItems[3].c_str());
+
+    mvprintw(LINES / 2 + 2, (COLS - strlen(menuItems[4].c_str())) / 2, menuItems[4].c_str());
 
     refresh();
 
@@ -160,8 +162,10 @@ int renderMenu()
                 attroff(A_STANDOUT);
                 int index_1 = (index - 1 < 0) ? menuItems.size() - 1 : index - 1;
                 int index_2 = (index_1 - 1 < 0) ? menuItems.size() - 1 : index_1 - 1;
+                int index_3 = (index_2 - 1 < 0) ? menuItems.size() - 1 : index_2 - 1;
                 mvprintw(LINES / 2 + index_1 - 2, (COLS - strlen(menuItems[index_1].c_str())) / 2, menuItems[index_1].c_str());
                 mvprintw(LINES / 2 + index_2 - 2, (COLS - strlen(menuItems[index_2].c_str())) / 2, menuItems[index_2].c_str());
+                mvprintw(LINES / 2 + index_3 - 2, (COLS - strlen(menuItems[index_3].c_str())) / 2, menuItems[index_3].c_str());
                 break;
             }
 
@@ -178,8 +182,10 @@ int renderMenu()
                 attroff(A_STANDOUT);
                 int index_1 = (index + 1 > menuItems.size() - 1) ? 0 : index + 1;
                 int index_2 = (index_1 + 1 > menuItems.size() - 1) ? 0 : index_1 + 1;
+                int index_3 = (index_2 + 1 > menuItems.size() - 1) ? 0 : index_2 + 1;
                 mvprintw(LINES / 2 + index_1 - 2, (COLS - strlen(menuItems[index_1].c_str())) / 2, menuItems[index_1].c_str());
                 mvprintw(LINES / 2 + index_2 - 2, (COLS - strlen(menuItems[index_2].c_str())) / 2, menuItems[index_2].c_str());
+                mvprintw(LINES / 2 + index_3 - 2, (COLS - strlen(menuItems[index_3].c_str())) / 2, menuItems[index_3].c_str());
                 break;
             }
         }
@@ -192,6 +198,7 @@ int renderMenu()
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     endwin();
+
     delete switchsound;
 
     return index;
@@ -217,6 +224,38 @@ std::string enterName()
     endwin(); //结束curses模式
 
     return s;
+}
+
+void enterNamePair(std::string &t1, std::string &t2)
+{
+    initscr(); //初始化curses模式
+    raw();
+    curs_set(0);
+
+    char* welcome = "Welcome to The Snake Game!";
+    mvprintw(LINES / 2 - 5, (COLS - strlen(welcome)) / 2, welcome);
+    char* player1 = "Please enter player1's name: ";
+    mvprintw(LINES / 2 - 3, COLS / 2 - strlen(player1) / 2, player1);
+    char* reminder1 = "Your control keys: W A S D.";
+    mvprintw(LINES / 2 - 2, COLS / 2 - strlen(reminder1) / 2, reminder1);
+    char* color1 = "Your snake's color: red.";
+    mvprintw(LINES / 2 - 1, COLS / 2 - strlen(color1) / 2, color1);
+    char* player2 = "Please enter player2's name: ";
+    mvprintw(LINES / 2 + 1, COLS / 2 - strlen(player2) / 2, player2);
+    char* reminder2 = "Your control keys: ↑ ← ↓ →.";
+    mvprintw(LINES / 2 + 2, COLS / 2 - strlen(reminder2) / 2 + 4, reminder2);
+    char* color2 = "Your snake's color: green.";
+    mvprintw(LINES / 2 + 3, COLS / 2 - strlen(color2) / 2, color2);
+
+    refresh();
+    char name1[7];
+    char name2[7];
+    mvgetstr(LINES / 2 - 3, COLS / 2 + strlen(player1) / 2, name1);
+    mvgetstr(LINES / 2 + 1, COLS / 2 + strlen(player2) / 2, name2);
+    std::string s1(name1);
+    std::string s2(name2);
+    t1 = s1;
+    t2 = s2;
 }
 
 //播放长音乐

@@ -1,5 +1,6 @@
 #include "game.h"
 #include "game_fun.h"
+#include "game_pair.h"
 #include "curses.h"
 #include "color.h""
 #include <string>
@@ -56,7 +57,28 @@ int main(int argc, char** argv)
     }
 
     else if (mode == 1) {
+        string s1;
+        string s2;
+        enterNamePair(s1, s2);
+        backgroundMusic1->stop();
+        sound1->play();
 
+        sf::Music* backgroundMusic2 = gameMusic("African_fun_long.ogg");
+        backgroundMusic2->play();
+
+        GamePair game_pair;
+        game_pair.setName(s1,s2);
+        game_pair.startGame();
+        backgroundMusic2->stop();
+
+        if (game_pair.getBack()) {
+            music = true;
+            goto action;
+        }
+
+        delete backgroundMusic1;
+        delete backgroundMusic2;
+        delete sound1;
     }
 
     else if (mode == 2) {

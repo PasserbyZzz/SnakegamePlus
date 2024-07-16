@@ -14,6 +14,7 @@ sf::Vector2u getScreenResolution();
 void displayImageWithText();
 int renderMenu();
 std::string enterName();
+void enterNamePair(std::string &t1, std::string &t2);
 
 //≤•∑≈“Ù¿÷
 sf::Music* gameMusic(std::string music_name);

@@ -39,16 +39,17 @@
 	<wchar.h>
 	<stdbool.h>
 
-1721113763 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
+1721120622 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
 	"game.h"
 	"game_fun.h"
+	"game_pair.h"
 	"curses.h"
 	"color.h"
 	<string>
 	<iostream>
 	<cstring>
 
-1721112731 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
+1721122362 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
 	"color.h"
 	"curses.h"
 	<windows.h>
@@ -57,7 +58,7 @@
 	<thread>
 	<iostream>
 
-1720938745 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.h
+1721120622 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.h
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/Audio.hpp>
@@ -608,4 +609,40 @@
 	<algorithm>
 	"game_fun.h"
 	"color.h"
+
+1721120569 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake_pair.h"
+
+1721120523 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.h
+	<vector>
+
+1721122253 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_pair.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<ctime>
+	<SFML/Audio.hpp>
+	"snake_pair.h"
+
+1721122535 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_pair.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<windows.h>
+	<stdlib.h>
+	<chrono>
+	<thread>
+	<future>
+	<ctime>
+	<fstream>
+	<algorithm>
+	<SFML/Audio.hpp>
+	"curses.h"
+	"color.h"
+	"game_pair.h"
 
