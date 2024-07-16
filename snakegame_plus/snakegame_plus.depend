@@ -39,10 +39,11 @@
 	<wchar.h>
 	<stdbool.h>
 
-1721131211 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
+1721136307 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\main.cpp
 	"game.h"
 	"game_fun.h"
 	"game_pair.h"
+	"game_great.h"
 	"curses.h"
 	"color.h"
 	<string>
@@ -589,7 +590,7 @@
 	<vector>
 	<SFML/Audio.hpp>
 
-1721131211 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_fun.h
+1721138264 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_fun.h
 	"curses.h"
 	<string>
 	<vector>
@@ -610,7 +611,7 @@
 	"game_fun.h"
 	"color.h"
 
-1721135246 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.cpp
+1721144190 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_pair.cpp
 	<string>
 	<cstdlib>
 	<ctime>
@@ -648,7 +649,7 @@
 	"color.h"
 	"game_pair.h"
 
-1721135823 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.cpp
+1721143845 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.cpp
 	<string>
 	<iostream>
 	<cmath>
@@ -657,24 +658,28 @@
 	<thread>
 	<fstream>
 	<algorithm>
+	<SFML/Audio.hpp>
 	"game_great.h"
 	"color.h"
 
-1721135823 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.h
+1721139710 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.h
 	"curses.h"
 	<string>
 	<vector>
 	<memory>
 	<string>
+	<SFML/Audio.hpp>
 	"snake_great.h"
 
-1721135823 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_great.h
+1721139788 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_great.h
 	<vector>
+	<SFML/Audio.hpp>
 
-1721135823 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_great.cpp
+1721144081 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\snake_great.cpp
 	<string>
 	<cstdlib>
 	<ctime>
 	<iostream>
 	"snake_great.h"
+	"color.h"
 

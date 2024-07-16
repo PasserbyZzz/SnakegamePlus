@@ -128,7 +128,6 @@ private:
     //���ʱ��
     const int maxMove = 500;
 
-    sf::Sound* movesound;
     sf::Sound* deadsound;
     sf::Sound* pausesound;
     sf::Sound* switchsound;
