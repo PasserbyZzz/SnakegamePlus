@@ -66,6 +66,7 @@ private:
     std::vector<SnakeBody> Gate;
     sf::Sound* foodsound;
     sf::Sound* travelsound;
+    sf::Sound* movesound;
 };
 
 #endif

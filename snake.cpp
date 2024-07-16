@@ -36,12 +36,14 @@ Snake::Snake(int gameBoardWidth, int gameBoardHeight, int initialSnakeLength): m
     this->setRandomSeed();
     this->travelsound = gameSound("travel_through_wormhole.wav");
     this->foodsound = gameSound("game_bonus.wav");
+    this->movesound = gameSound("snake_move.wav");
 }
 
 Snake::~Snake()
 {
     delete travelsound;
     delete foodsound;
+    delete movesound;
 }
 
 void Snake::setRandomSeed()
@@ -221,6 +223,7 @@ bool Snake::changeDirection(Direction newDirection)
         {
             if (newDirection == Direction::Left || newDirection == Direction::Right)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }
@@ -233,6 +236,7 @@ bool Snake::changeDirection(Direction newDirection)
         {
             if (newDirection == Direction::Left || newDirection == Direction::Right)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }
@@ -245,6 +249,7 @@ bool Snake::changeDirection(Direction newDirection)
         {
             if (newDirection == Direction::Up || newDirection == Direction::Down)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }
@@ -257,6 +262,7 @@ bool Snake::changeDirection(Direction newDirection)
         {
             if (newDirection == Direction::Up || newDirection == Direction::Down)
             {
+                this->movesound->play();
                 this->mDirection = newDirection;
                 return true;
             }

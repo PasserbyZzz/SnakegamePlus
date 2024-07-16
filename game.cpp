@@ -47,7 +47,6 @@ Game::Game()
 
     //Initialize the sound
     this->pausesound = gameSound("game_start.wav");
-    this->movesound = gameSound("snake_move.wav");
     this->deadsound = gameSound("game_over.wav");
     this->switchsound = gameSound("light_switch.wav");
 }
@@ -61,7 +60,7 @@ Game::~Game()
         delwin(this->mWindows[i]);
     }
     endwin();
-    delete movesound;
+
     delete deadsound;
     delete pausesound;
     delete switchsound;
@@ -217,6 +216,7 @@ int Game::renderRestartMenu() const
         wrefresh(menu);
         if (key == ' ' || key == 10)
         {
+            this->pausesound->play();
             break;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -294,6 +294,7 @@ int Game::renderPauseMenu() const
         wrefresh(menu);
         if (key == ' ' || key == 10)
         {
+            this->pausesound->play();
             break;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -447,7 +448,6 @@ bool Game::controlSnake() const
         case 'w':
         case KEY_UP:
         {
-            this->movesound->play();
             this->mPtrSnake->changeDirection(Direction::Up);
             break;
         }
@@ -455,7 +455,6 @@ bool Game::controlSnake() const
         case 's':
         case KEY_DOWN:
         {
-            this->movesound->play();
             this->mPtrSnake->changeDirection(Direction::Down);
             break;
         }
@@ -463,7 +462,6 @@ bool Game::controlSnake() const
         case 'a':
         case KEY_LEFT:
         {
-            this->movesound->play();
             this->mPtrSnake->changeDirection(Direction::Left);
             break;
         }
@@ -471,7 +469,6 @@ bool Game::controlSnake() const
         case 'd':
         case KEY_RIGHT:
         {
-            this->movesound->play();
             this->mPtrSnake->changeDirection(Direction::Right);
             break;
         }

@@ -94,10 +94,11 @@ private:
     string mName;
     int mCnt = 0;
     bool mAttempt = false;
-    sf::Sound* movesound;
+
     sf::Sound* deadsound;
     sf::Sound* pausesound;
     sf::Sound* switchsound;
+
     bool backToMenu = false;
     bool exit = false;
 };
