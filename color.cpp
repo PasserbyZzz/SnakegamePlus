@@ -24,7 +24,8 @@ void initColors() {
 }
 
 // 获取屏幕分辨率
-sf::Vector2u getScreenResolution() {
+sf::Vector2u getScreenResolution()
+{
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Get Screen Resolution", sf::Style::None);
     sf::Vector2u screenSize = window.getSize();
     window.close();
@@ -32,7 +33,8 @@ sf::Vector2u getScreenResolution() {
 }
 
 //打印背景图片和文字
-void displayImageWithText() {
+void displayImageWithText()
+{
     // 获取屏幕分辨率
     sf::Vector2u screenSize = getScreenResolution();
 
@@ -232,26 +234,36 @@ void enterNamePair(std::string &t1, std::string &t2)
     raw();
     curs_set(0);
 
+    initColors();
+
     char* welcome = "Welcome to The Snake Game!";
     mvprintw(LINES / 2 - 5, (COLS - strlen(welcome)) / 2, welcome);
-    char* player1 = "Please enter player1's name: ";
-    mvprintw(LINES / 2 - 3, COLS / 2 - strlen(player1) / 2, player1);
-    char* reminder1 = "Your control keys: W A S D.";
+    char* player1 = "Please enter ";
+    mvprintw(LINES / 2 - 3, COLS / 2 - 12, player1);
+    attron(COLOR_PAIR(4));
+    mvprintw(LINES / 2 - 3, COLS / 2 + 1, "P1");
+    attroff(COLOR_PAIR(4));
+    mvprintw(LINES / 2 - 3, COLS / 2 + 3, "'s name: ");
+    char* reminder1 = "Your keys: W A S D.";
     mvprintw(LINES / 2 - 2, COLS / 2 - strlen(reminder1) / 2, reminder1);
-    char* color1 = "Your snake's color: red.";
+    char* color1 = "Your snake's color: RED.";
     mvprintw(LINES / 2 - 1, COLS / 2 - strlen(color1) / 2, color1);
-    char* player2 = "Please enter player2's name: ";
-    mvprintw(LINES / 2 + 1, COLS / 2 - strlen(player2) / 2, player2);
-    char* reminder2 = "Your control keys: ↑ ← ↓ →.";
+    char* player2 = "Please enter ";
+    mvprintw(LINES / 2 + 1, COLS / 2 - 12, player2);
+    attron(COLOR_PAIR(3));
+    mvprintw(LINES / 2 + 1, COLS / 2 + 1, "P2");
+    attroff(COLOR_PAIR(3));
+    mvprintw(LINES / 2 + 1, COLS / 2 + 3, "'s name: ");
+    char* reminder2 = "Your keys: UP LEFT DOWN RIGHT.";
     mvprintw(LINES / 2 + 2, COLS / 2 - strlen(reminder2) / 2 + 4, reminder2);
-    char* color2 = "Your snake's color: green.";
+    char* color2 = "Your snake's color: BLUE.";
     mvprintw(LINES / 2 + 3, COLS / 2 - strlen(color2) / 2, color2);
 
     refresh();
     char name1[7];
     char name2[7];
-    mvgetstr(LINES / 2 - 3, COLS / 2 + strlen(player1) / 2, name1);
-    mvgetstr(LINES / 2 + 1, COLS / 2 + strlen(player2) / 2, name2);
+    mvgetstr(LINES / 2 - 3, COLS / 2 + 12, name1);
+    mvgetstr(LINES / 2 + 1, COLS / 2 + 12, name2);
     std::string s1(name1);
     std::string s2(name2);
     t1 = s1;
