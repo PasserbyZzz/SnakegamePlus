@@ -104,8 +104,8 @@ private:
     const int mRecreationDelay = 100;
     int numOfObstacles = 5; //changed by qjc
     int mDelay = 100;
-    const std::string mRecordBoardFilePath = "point_record.dat";
-    const std::string mNameBoardFilePath = "name_record.dat";
+    const std::string mRecordBoardFilePath = "point_record_great.dat";
+    const std::string mNameBoardFilePath = "name_record_great.dat";
     std::vector<int> mLeaderBoard;
     std::vector<string> mNameBoard;
     const int mNumLeaders = 3;
