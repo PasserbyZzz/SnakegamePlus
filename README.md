@@ -6,6 +6,7 @@
     - [Part II. Two Players mode](#part-ii-two-players-mode)
     - [Part III. Just Eat](#part-iii-just-eat)
     - [Part IV. Entertainment mode](#part-iv-entertainment-mode)
+      - [Enjoy our game😊!](#enjoy-our-game)
 
 ## Brief Introduction
 An advanced version based on the fundamental edition of the snakegame.
@@ -40,6 +41,37 @@ In this mode, you'll see a large amount of food with different values.
   Obstacles, `Y` and `y` are reserved,  while portal gates are banned. Try to score as many as points as you can within the limited time.
 
 ### Part IV. Entertainment mode
-In this mode, 
+In this mode, The game is divided into two states: **Scoring State and Penalty State**. Each round lasts 200 moves.
+
+1. **Within each round**:
+
+ - The first 100 moves are **the Scoring State**: Food is represented by a hash mark `#`.
+ - The following 100 moves are **the Penalty State**: Food is represented by a square (Just like the obstacles).
+ - After consuming a piece of food, **the score will increase or decrease**  accoring to the state by **the point value** of the food.
+ - After consuming a piece of food, **the snake's length** will increase or decrease by **1**.
+
+
+2. The Snake **won't die** when: 
+- Touching the walls
+
+- Touching the white obstacles
+
+- Touching its own body
+  
+3. The Snake **will die** when:
+
+- Its length **reaches 0** or **exceeds 30**.
+
+- When transitioning from the Scoring State to the Penalty State, the snake will die if its length is less than 15.
+
+- When transitioning from the Penalty State to the Scoring State, the snake will die if its length is greater than 15.
+
+4. Additional hint:
+-  About the length: The snake's length is displayed in the center of the screen to help players manage their length.
+- **Bonus Scoring**: Achieving 20 or more food items consumed **during the Penalty State** of a round earns a bonus score, which is three times the points scored during the Scoring State of that round.
+- Key Effect: Pressing the 'H' key accelerates the snake and slow down the passage of time, allowing it to consume more food in a short period of time.
+- Portals: Portals can still be used as intended.
+
+5.  Intention: This mode encourages players to consume high-point food in the Scoring State and low-point food in the Penalty State to ensure the snake's length changes and to try to earn more scores.
 
 #### Enjoy our game😊!

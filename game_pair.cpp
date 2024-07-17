@@ -411,7 +411,7 @@ void GamePair::renderGate() const
 
     wrefresh(this->mWindows[1]);
 }
-
+/*
 void GamePair::createRandomObstacle()
 {
     int currentObstaclenum = 0;
@@ -425,6 +425,48 @@ void GamePair::createRandomObstacle()
         this->mObstacle.push_back(oneObstacle);
         this->mPtrSnake1->senseObstacle(oneObstacle);
         this->mPtrSnake2->senseObstacle(oneObstacle);
+        currentObstaclenum++;
+    }
+}
+*/
+void GamePair::createRandomObstacle()
+{
+    int currentObstaclenum = 0;
+    while (currentObstaclenum < this->numOfObstacles) {
+        int x1 = (rand() % (this->mGameBoardWidth - 2)) + 1;
+        int y1 = (rand() % (this->mGameBoardHeight - 2)) + 1;
+
+        int x2 = x1 - 1;
+        int y2 = y1;
+
+        if (x2 <= 0 || x2 >= this->mGameBoardWidth - 1 || y2 <= 0 || y2 >= mGameBoardHeight) {
+            continue;
+        }
+
+        if (this->mPtrSnake1->isPartOfSnake(x1,y1) || this->mPtrSnake1->isPartOfFood(x1,y1) || this->mPtrSnake1->isPartOfObstacle(x1,y1)) {
+            continue;
+        }
+
+        if (this->mPtrSnake2->isPartOfSnake(x1,y1) || this->mPtrSnake2->isPartOfFood(x1,y1) || this->mPtrSnake2->isPartOfObstacle(x1,y1)) {
+            continue;
+        }
+
+        if (this->mPtrSnake1->isPartOfSnake(x2,y2) || this->mPtrSnake1->isPartOfFood(x2,y2) || this->mPtrSnake1->isPartOfObstacle(x2,y2)) {
+            continue;
+        }
+
+        if (this->mPtrSnake2->isPartOfSnake(x2,y2) || this->mPtrSnake2->isPartOfFood(x2,y2) || this->mPtrSnake2->isPartOfObstacle(x2,y2)) {
+            continue;
+        }
+
+        SnakeBodyPair oneObstacle1 = SnakeBodyPair(x1, y1);
+        SnakeBodyPair oneObstacle2 = SnakeBodyPair(x2, y2);
+        this->mObstacle.push_back(oneObstacle1);
+        this->mObstacle.push_back(oneObstacle2);
+        this->mPtrSnake1->senseObstacle(oneObstacle1);
+        this->mPtrSnake1->senseObstacle(oneObstacle2);
+        this->mPtrSnake2->senseObstacle(oneObstacle1);
+        this->mPtrSnake2->senseObstacle(oneObstacle2);
         currentObstaclenum++;
     }
 }
