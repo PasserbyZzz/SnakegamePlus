@@ -1,7 +1,3 @@
----
-print_background: true
----
-
 # SnakegamePlus🐍
 
 - [SnakegamePlus🐍](#snakegameplus)
