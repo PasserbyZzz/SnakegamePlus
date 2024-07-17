@@ -37,6 +37,7 @@ Snake::Snake(int gameBoardWidth, int gameBoardHeight, int initialSnakeLength): m
     this->travelsound = gameSound("travel_through_wormhole.wav");
     this->foodsound = gameSound("game_bonus.wav");
     this->movesound = gameSound("snake_move.wav");
+    this->dingsound = gameSound("ding.wav");
 }
 
 Snake::~Snake()
@@ -44,6 +45,7 @@ Snake::~Snake()
     delete travelsound;
     delete foodsound;
     delete movesound;
+    delete dingsound;
 }
 
 void Snake::setRandomSeed()
@@ -105,11 +107,26 @@ bool Snake::isPartOfSnake(int x, int y)
     return false;
 }
 
+bool Snake::isPartOfObstacle(int x, int y)
+{
+    SnakeBody temp = SnakeBody(x, y);
+    for (int i = 0; i < this->Obstacle.size(); i ++)
+    {
+        if (this->Obstacle[i] == temp)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Snake::isPartOfFood(int x, int y)
 {
     SnakeBody temp = SnakeBody(x, y);
-    if (this->mFood == temp)
-        return true;
+    for (SnakeBody oneFood: this->mFood) {
+        if (oneFood == temp)
+            return true;
+    }
     return false;
 }
 
@@ -150,16 +167,28 @@ bool Snake::hitSelf()
     return false;
 }
 
+bool Snake::hitObstacle()
+{
+    SnakeBody& head = this->mSnake[0];
+    for (SnakeBody oneObstacle: Obstacle) {
+        if (head == oneObstacle && !invincibility)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 int Snake::touchThing()
 {
     SnakeBody newHead = this->createNewHead();
-    if (this->mFood == newHead)
-    {
-        this->foodsound->play();
-        return 1;
+    for (SnakeBody oneFood: this->mFood) {
+        if (oneFood == newHead) {
+            this->foodsound->play();
+            return 1;
+        }
     }
-    else if (this->Gate[0] == newHead)
+    if (this->Gate[0] == newHead)
     {
         this->travelsound->play();
         return 2;
@@ -195,9 +224,41 @@ int Snake::touchThing()
     }
 }
 
-void Snake::senseFood(SnakeBody food)
+int Snake::touchFoodIndex(int &x)
 {
-    this->mFood = food;
+    SnakeBody newHead = mSnake[0];
+    bool op = false;
+    int k = -1;
+    for (int i = 0; i < this->mFood.size(); i++)
+    {
+        if (this->mFood[i]== newHead)
+        {
+            op = true;
+            k = i;
+            break;
+        }
+    }
+    if (op == true)
+    {
+        x = k;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void Snake::senseFood(SnakeBody food, int score)
+{
+    this->mFood.push_back(food);
+    this->mScore.push_back(score);
+}
+
+void Snake::senseFood(std::vector<SnakeBody> mfood, std::vector<int> mscore)
+{
+    this->mFood = mfood;
+    this->mScore = mscore;
 }
 
 void Snake::senseGate(SnakeBody ga1, SnakeBody ga2, SnakeBody ga3, SnakeBody ga4, SnakeBody ga5, SnakeBody ga6)
@@ -208,6 +269,33 @@ void Snake::senseGate(SnakeBody ga1, SnakeBody ga2, SnakeBody ga3, SnakeBody ga4
     this->Gate.push_back(ga4);
     this->Gate.push_back(ga5);
     this->Gate.push_back(ga6);
+}
+
+//以vector形式增添障碍物
+void Snake::senseObstacle(std::vector<SnakeBody> mObstacle)
+{
+    for (int i = 0; i < mObstacle.size(); i++) {
+        this->Obstacle.push_back(mObstacle[i]);
+    }
+}
+
+//以SnakeBody形式增添障碍物
+void Snake::senseObstacle(SnakeBody oneObstacle)
+{
+    this->Obstacle.push_back(oneObstacle);
+}
+
+//设置无敌模式
+void Snake::setInvin()
+{
+    //如果技能还在冷却状态，无法设置
+    if (this->invin_present_CD) return;
+
+    //设置无敌模式为真，重置无敌CD和无敌时长
+    this->dingsound->play();
+    this->invincibility = true;
+    this->invin_present_CD = this->invin_whole_CD;
+    this->invin_present_time = this->invin_whole_time;
 }
 
 std::vector<SnakeBody>& Snake::getSnake()
@@ -306,6 +394,11 @@ bool Snake::moveFoward()
 		 * move the snake forward.
      * If eat food, return true, otherwise return false
      */
+     //无敌状态设置
+     this->dicrCD();
+     this->dicrInvTime(); //减少冷却CD和无敌时长（如果这两个数字此时大于0）
+     this->resetInvin();  //如果无敌时间结束，那就终止无敌状态
+
     int flag = this->touchThing();
     Direction b = this->mDirection;
 
@@ -422,7 +515,7 @@ bool Snake::moveFoward()
 
 bool Snake::checkCollision()
 {
-    if (this->hitWall() || this->hitSelf())
+    if (this->hitWall() || this->hitSelf() || this->hitObstacle())
     {
         return true;
     }

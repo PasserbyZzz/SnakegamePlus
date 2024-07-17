@@ -72,6 +72,14 @@ void GamePair::createInformationBoard()
 void GamePair::renderInformationBoard() const
 {
     mvwprintw(this->mWindows[0], 1, 1, "Welcome to The Snake Game!");
+    wattron(this->mWindows[0], COLOR_PAIR(4));
+    mvwprintw(this->mWindows[0], 2, 1, "P1: ");
+    wattroff(this->mWindows[0], COLOR_PAIR(4));
+    mvwprintw(this->mWindows[0], 2, 5, this->mName1.c_str());
+    wattron(this->mWindows[0], COLOR_PAIR(3));
+    mvwprintw(this->mWindows[0], 2, 7 + strlen(this->mName1.c_str()), "P2: ");
+    wattroff(this->mWindows[0], COLOR_PAIR(3));
+    mvwprintw(this->mWindows[0], 2, 11 + strlen(this->mName1.c_str()), this->mName2.c_str());
     mvwprintw(this->mWindows[0], 3, 1, "Website: https://github.com/PasserbyZzz/SnakegamePlus");
     mvwprintw(this->mWindows[0], 4, 1, "Team Members: DZX, QJC and XKY");
     wrefresh(this->mWindows[0]);
@@ -99,13 +107,13 @@ void GamePair::createInstructionBoard()
 void GamePair::renderInstructionBoard() const
 {
     mvwprintw(this->mWindows[2], 1, 1, "Manual");
-    mvwprintw(this->mWindows[2], 2, 1, "Snakel   Snake2");
-    mvwprintw(this->mWindows[2], 3, 1, "  W        UP  ");
-    mvwprintw(this->mWindows[2], 4, 1, "  S       DOWN ");
-    mvwprintw(this->mWindows[2], 5, 1, "  A       LEFT ");
-    mvwprintw(this->mWindows[2], 6, 1, "  D       RIGHT");
-    mvwprintw(this->mWindows[2], 8, 1, "CountingDown:");
-    mvwprintw(this->mWindows[2], 11, 1, "Points");
+    mvwprintw(this->mWindows[2], 3, 1, "Snakel   Snake2");
+    mvwprintw(this->mWindows[2], 4, 1, "  W        UP  ");
+    mvwprintw(this->mWindows[2], 5, 1, "  S       DOWN ");
+    mvwprintw(this->mWindows[2], 6, 1, "  A       LEFT ");
+    mvwprintw(this->mWindows[2], 7, 1, "  D       RIGHT");
+    mvwprintw(this->mWindows[2], 9, 1, "CountingDown:");
+    mvwprintw(this->mWindows[2], 12, 1, "Points");
 
     wrefresh(this->mWindows[2]);
 }
@@ -186,9 +194,11 @@ int GamePair::renderRestartMenu(int k) const
                 mvwprintw(menu, index_ + offset, 1, menuItems[index_].c_str());
                 break;
             }
+            default:
+                break;
         }
         wrefresh(menu);
-        if (key == ' ' || key == 10)
+        if (key == ' ' || key == 10 || key == '\r')
         {
             this->pausesound->play();
             break;
@@ -263,7 +273,7 @@ int GamePair::renderPauseMenu() const
         }
 
         wrefresh(menu);
-        if (key == ' ' || key == 10)
+        if (key == ' ' || key == 10 || key == '\r')
         {
             this->pausesound->play();
             break;
@@ -282,17 +292,17 @@ void GamePair::renderPoints() const
 
     if (mPoints[0] >= mPoints[1])
     {
-        mvwprintw(this->mWindows[2], 12, 1, this->mName1.c_str());
-        mvwprintw(this->mWindows[2], 13, 1, this->mName2.c_str());
-        mvwprintw(this->mWindows[2], 12, 7, pointString1.c_str());
-        mvwprintw(this->mWindows[2], 13, 7, pointString2.c_str());
+        mvwprintw(this->mWindows[2], 13, 1, this->mName1.c_str());
+        mvwprintw(this->mWindows[2], 14, 1, this->mName2.c_str());
+        mvwprintw(this->mWindows[2], 13, 7, pointString1.c_str());
+        mvwprintw(this->mWindows[2], 14, 7, pointString2.c_str());
     }
     else
     {
-        mvwprintw(this->mWindows[2], 12, 1, this->mName2.c_str());
-        mvwprintw(this->mWindows[2], 13, 1, this->mName1.c_str());
-        mvwprintw(this->mWindows[2], 12, 7, pointString2.c_str());
-        mvwprintw(this->mWindows[2], 13, 7, pointString1.c_str());
+        mvwprintw(this->mWindows[2], 13, 1, this->mName2.c_str());
+        mvwprintw(this->mWindows[2], 14, 1, this->mName1.c_str());
+        mvwprintw(this->mWindows[2], 13, 7, pointString2.c_str());
+        mvwprintw(this->mWindows[2], 14, 7, pointString1.c_str());
     };
 
     wrefresh(this->mWindows[2]);
@@ -302,7 +312,7 @@ void GamePair::renderTime()
 {
     int x = this->countDown();
     string timex = to_string(x);
-    mvwprintw(this->mWindows[2],9,1,timex.c_str());
+    mvwprintw(this->mWindows[2],10,1,timex.c_str());
 }
 
 void GamePair::initializeGame()
@@ -411,24 +421,7 @@ void GamePair::renderGate() const
 
     wrefresh(this->mWindows[1]);
 }
-/*
-void GamePair::createRandomObstacle()
-{
-    int currentObstaclenum = 0;
-    while (currentObstaclenum < this->numOfObstacles) {
-        int x1 = (rand() % (this->mGameBoardWidth - 2)) + 1;
-        int y1 = (rand() % (this->mGameBoardHeight - 2)) + 1;
-        if (this->mPtrSnake1->isPartOfSnake(x1,y1) || this->mPtrSnake2->isPartOfSnake(x1,y1) || this->mPtrSnake1->isPartOfFood(x1,y1) || this->mPtrSnake1->isPartOfObstacle(x1,y1)) {
-            continue;
-        }
-        SnakeBodyPair oneObstacle = SnakeBodyPair(x1, y1);
-        this->mObstacle.push_back(oneObstacle);
-        this->mPtrSnake1->senseObstacle(oneObstacle);
-        this->mPtrSnake2->senseObstacle(oneObstacle);
-        currentObstaclenum++;
-    }
-}
-*/
+
 void GamePair::createRandomObstacle()
 {
     int currentObstaclenum = 0;

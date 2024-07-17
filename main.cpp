@@ -108,7 +108,7 @@ int main(int argc, char** argv)
         delete sound1;
     }
 
-    else {
+    else if (mode == 3) {
         //ÊäÈëÍæ¼ÒÐÕÃû
         string s = enterName();
         backgroundMusic1->stop();
