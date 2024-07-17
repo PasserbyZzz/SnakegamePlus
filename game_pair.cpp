@@ -327,6 +327,7 @@ void GamePair::initializeGame()
     this->mObstacle.clear();
     this->createRandomObstacle();
 
+    this->Gate.clear();
     this->createRandomGate();
     this->createRandomGate();
     this->createRandomGate();
