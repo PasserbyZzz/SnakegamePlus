@@ -683,3 +683,174 @@
 	"snake_great.h"
 	"color.h"
 
+1721228314 source:d:\cpp_programs\1605\snakegameplus\color.cpp
+	"color.h"
+	"curses.h"
+	<windows.h>
+	<string>
+	<chrono>
+	<thread>
+	<iostream>
+
+1721120622 d:\cpp_programs\1605\snakegameplus\color.h
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/Audio.hpp>
+	<string>
+
+1655723618 d:\cpp_programs\1605\snakegameplus\curses.h
+	<stdarg.h>
+	<stddef.h>
+	<stdio.h>
+	<wchar.h>
+	<stdbool.h>
+
+1721200798 source:d:\cpp_programs\1605\snakegameplus\game.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<chrono>
+	<thread>
+	<fstream>
+	<algorithm>
+	<SFML/Audio.hpp>
+	"game.h"
+	"color.h"
+
+1721211897 d:\cpp_programs\1605\snakegameplus\game.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<string>
+	<SFML/Audio.hpp>
+	"snake.h"
+
+1721200626 d:\cpp_programs\1605\snakegameplus\snake.h
+	<vector>
+	<SFML/Audio.hpp>
+
+1721232072 source:d:\cpp_programs\1605\snakegameplus\game_fun.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<string>
+	<chrono>
+	<thread>
+	<fstream>
+	<algorithm>
+	"game_fun.h"
+	"color.h"
+
+1721211900 d:\cpp_programs\1605\snakegameplus\game_fun.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<string>
+	<SFML/Audio.hpp>
+	"snake_fun.h"
+
+1721132335 d:\cpp_programs\1605\snakegameplus\snake_fun.h
+	<vector>
+	<SFML/Audio.hpp>
+
+1721268404 source:d:\cpp_programs\1605\snakegameplus\game_great.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<string>
+	<chrono>
+	<thread>
+	<fstream>
+	<algorithm>
+	<SFML/Audio.hpp>
+	"game_great.h"
+	"color.h"
+
+1721211900 d:\cpp_programs\1605\snakegameplus\game_great.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<string>
+	<SFML/Audio.hpp>
+	"snake_great.h"
+
+1721139788 d:\cpp_programs\1605\snakegameplus\snake_great.h
+	<vector>
+	<SFML/Audio.hpp>
+
+1721201548 source:d:\cpp_programs\1605\snakegameplus\game_pair.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<windows.h>
+	<stdlib.h>
+	<chrono>
+	<thread>
+	<future>
+	<ctime>
+	<fstream>
+	<algorithm>
+	<SFML/Audio.hpp>
+	"curses.h"
+	"color.h"
+	"game_pair.h"
+
+1721134630 d:\cpp_programs\1605\snakegameplus\game_pair.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<ctime>
+	<SFML/Audio.hpp>
+	"snake_pair.h"
+
+1721135062 d:\cpp_programs\1605\snakegameplus\snake_pair.h
+	<vector>
+	<SFML/Audio.hpp>
+
+1721183616 source:d:\cpp_programs\1605\snakegameplus\main.cpp
+	"game.h"
+	"game_fun.h"
+	"game_pair.h"
+	"game_great.h"
+	"curses.h"
+	"color.h"
+	<string>
+	<iostream>
+	<cstring>
+
+1721200583 source:d:\cpp_programs\1605\snakegameplus\snake.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake.h"
+	"color.h"
+
+1721132402 source:d:\cpp_programs\1605\snakegameplus\snake_fun.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake_fun.h"
+	"color.h"
+
+1721144081 source:d:\cpp_programs\1605\snakegameplus\snake_great.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake_great.h"
+	"color.h"
+
+1721144190 source:d:\cpp_programs\1605\snakegameplus\snake_pair.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake_pair.h"
+	"color.h"
+
