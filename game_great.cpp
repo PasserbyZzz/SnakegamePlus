@@ -323,7 +323,7 @@ void Game_great::renderDifficulty() const
     if (!gainorlose) {
         recremode = "Lose  ";
     }
-    std::string difficultyString = recremode + std::to_string(this->mDifficulty);
+    std::string difficultyString = recremode + std::to_string(this->mDifficulty + 1);
     mvwprintw(this->mWindows[2], 9, 1, difficultyString.c_str());
     wrefresh(this->mWindows[2]);
 }
