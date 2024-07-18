@@ -14,7 +14,7 @@ Completed by DZX, QJC and XKY in Summer, 2024.
 Supported by PDCurses and SFML.
 Everything available on [Our GitHub](https://github.com/PasserbyZzz/SnakegamePlus).
 
-Players can choose from three kinds of mode in our game: *Single Player*, *Two Players*, *Just Eat*, *Entertainment*.
+Players can choose from four kinds of mode in our game: *Single Player*, *Two Players*, *Just Eat*, *Entertainment*.
 Explanations are as follows.
 
 ### Part I. Single Player mode
