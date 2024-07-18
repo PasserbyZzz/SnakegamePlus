@@ -117,7 +117,7 @@ void Game_great::renderInstructionBoard() const
 {
     mvwprintw(this->mWindows[2], 1, 1, "Manual");
 
-    mvwprintw(this->mWindows[2], 3, 1, "GREEN  : 1");
+    mvwprintw(this->mWindows[2], 3, 1, "MAGENTA: 1");
     mvwprintw(this->mWindows[2], 4, 1, "RED    : 2");
     mvwprintw(this->mWindows[2], 5, 1, "YELLOW : 3");
     mvwprintw(this->mWindows[2], 6, 1, "BLUE   : 5");
@@ -321,7 +321,7 @@ void Game_great::renderDifficulty() const
 {
     std::string recremode("Gain  ");
     if (!gainorlose) {
-        recremode == "Lose  ";
+        recremode = "Lose  ";
     }
     std::string difficultyString = recremode + std::to_string(this->mDifficulty);
     mvwprintw(this->mWindows[2], 9, 1, difficultyString.c_str());
@@ -819,9 +819,10 @@ void Game_great::runGame()
                 this->mPtrSnake->getSnake().pop_back();
                 this->mPtrSnake->getSnake().pop_back();
                 loseNum++;
-                if (loseNum > 10) {
+                if (loseNum > 20) {
                     loseNum = 0;
                     mPoints += gainPointsInOneStage*3;
+
                 }
             }
 

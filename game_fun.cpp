@@ -114,10 +114,10 @@ void GameFun::renderInstructionBoard() const
 {
     mvwprintw(this->mWindows[2], 1, 1, "Manual");
 
-    mvwprintw(this->mWindows[2], 3, 1, "Up: W");
-    mvwprintw(this->mWindows[2], 4, 1, "Down: S");
-    mvwprintw(this->mWindows[2], 5, 1, "Left: A");
-    mvwprintw(this->mWindows[2], 6, 1, "Right: D");
+    mvwprintw(this->mWindows[2], 3, 1, "MAGENTA: 1");
+    mvwprintw(this->mWindows[2], 4, 1, "RED    : 2");
+    mvwprintw(this->mWindows[2], 5, 1, "YELLOW : 3");
+    mvwprintw(this->mWindows[2], 6, 1, "BLUE   : 5");
 
     mvwprintw(this->mWindows[2], 8, 1, "Difficulty");
     mvwprintw(this->mWindows[2], 11, 1, "Points");

@@ -21,6 +21,10 @@ void initColors() {
     init_pair(9, COLOR_RED, COLOR_BLACK); //分值2食物
     init_pair(10, COLOR_YELLOW, COLOR_BLACK); //分值3食物
     init_pair(11, COLOR_BLUE, COLOR_BLACK); //分值5食物
+    init_pair(12, COLOR_MAGENTA, COLOR_MAGENTA); //分值1食物
+    init_pair(13, COLOR_RED, COLOR_RED); //分值2食物
+    init_pair(14, COLOR_YELLOW, COLOR_YELLOW); //分值3食物
+    init_pair(15, COLOR_BLUE, COLOR_BLUE); //分值5食物
 }
 
 // 获取屏幕分辨率
