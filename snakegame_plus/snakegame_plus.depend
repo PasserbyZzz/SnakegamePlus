@@ -23,7 +23,7 @@
 	"game.h"
 	"color.h"
 
-1721200754 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
+1721211897 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game.h
 	"curses.h"
 	<string>
 	<vector>
@@ -50,7 +50,7 @@
 	<iostream>
 	<cstring>
 
-1721207106 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
+1721271118 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\color.cpp
 	"color.h"
 	"curses.h"
 	<windows.h>
@@ -590,7 +590,7 @@
 	<vector>
 	<SFML/Audio.hpp>
 
-1721138264 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_fun.h
+1721211900 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_fun.h
 	"curses.h"
 	<string>
 	<vector>
@@ -599,7 +599,7 @@
 	<SFML/Audio.hpp>
 	"snake_fun.h"
 
-1721182982 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_fun.cpp
+1721271118 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_fun.cpp
 	<string>
 	<iostream>
 	<cmath>
@@ -649,7 +649,7 @@
 	"color.h"
 	"game_pair.h"
 
-1721143845 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.cpp
+1721271118 source:c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.cpp
 	<string>
 	<iostream>
 	<cmath>
@@ -662,7 +662,7 @@
 	"game_great.h"
 	"color.h"
 
-1721139710 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.h
+1721211900 c:\users\lenovo\desktop\pri\grade one 3rd\programming practice\snakegameplus\game_great.h
 	"curses.h"
 	<string>
 	<vector>
@@ -847,6 +847,164 @@
 	"color.h"
 
 1721144190 source:d:\cpp_programs\1605\snakegameplus\snake_pair.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake_pair.h"
+	"color.h"
+
+1721228314 source:c:\users\lenovo\desktop\snakegameplus\color.cpp
+	"color.h"
+	"curses.h"
+	<windows.h>
+	<string>
+	<chrono>
+	<thread>
+	<iostream>
+
+1721120622 c:\users\lenovo\desktop\snakegameplus\color.h
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/Audio.hpp>
+	<string>
+
+1655723618 c:\users\lenovo\desktop\snakegameplus\curses.h
+	<stdarg.h>
+	<stddef.h>
+	<stdio.h>
+	<wchar.h>
+	<stdbool.h>
+
+1721200798 source:c:\users\lenovo\desktop\snakegameplus\game.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<chrono>
+	<thread>
+	<fstream>
+	<algorithm>
+	<SFML/Audio.hpp>
+	"game.h"
+	"color.h"
+
+1721211896 c:\users\lenovo\desktop\snakegameplus\game.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<string>
+	<SFML/Audio.hpp>
+	"snake.h"
+
+1721200626 c:\users\lenovo\desktop\snakegameplus\snake.h
+	<vector>
+	<SFML/Audio.hpp>
+
+1721232072 source:c:\users\lenovo\desktop\snakegameplus\game_fun.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<string>
+	<chrono>
+	<thread>
+	<fstream>
+	<algorithm>
+	"game_fun.h"
+	"color.h"
+
+1721211900 c:\users\lenovo\desktop\snakegameplus\game_fun.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<string>
+	<SFML/Audio.hpp>
+	"snake_fun.h"
+
+1721132334 c:\users\lenovo\desktop\snakegameplus\snake_fun.h
+	<vector>
+	<SFML/Audio.hpp>
+
+1721201548 source:c:\users\lenovo\desktop\snakegameplus\game_pair.cpp
+	<string>
+	<iostream>
+	<cmath>
+	<windows.h>
+	<stdlib.h>
+	<chrono>
+	<thread>
+	<future>
+	<ctime>
+	<fstream>
+	<algorithm>
+	<SFML/Audio.hpp>
+	"curses.h"
+	"color.h"
+	"game_pair.h"
+
+1721134630 c:\users\lenovo\desktop\snakegameplus\game_pair.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<ctime>
+	<SFML/Audio.hpp>
+	"snake_pair.h"
+
+1721135062 c:\users\lenovo\desktop\snakegameplus\snake_pair.h
+	<vector>
+	<SFML/Audio.hpp>
+
+1721183616 source:c:\users\lenovo\desktop\snakegameplus\main.cpp
+	"game.h"
+	"game_fun.h"
+	"game_pair.h"
+	"game_great.h"
+	"curses.h"
+	"color.h"
+	<string>
+	<iostream>
+	<cstring>
+
+1721211900 c:\users\lenovo\desktop\snakegameplus\game_great.h
+	"curses.h"
+	<string>
+	<vector>
+	<memory>
+	<string>
+	<SFML/Audio.hpp>
+	"snake_great.h"
+
+1721139788 c:\users\lenovo\desktop\snakegameplus\snake_great.h
+	<vector>
+	<SFML/Audio.hpp>
+
+1721200582 source:c:\users\lenovo\desktop\snakegameplus\snake.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake.h"
+	"color.h"
+
+1721132402 source:c:\users\lenovo\desktop\snakegameplus\snake_fun.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake_fun.h"
+	"color.h"
+
+1721273873 source:c:\users\lenovo\desktop\snakegameplus\snake_great.cpp
+	<string>
+	<cstdlib>
+	<ctime>
+	<iostream>
+	"snake_great.h"
+	"color.h"
+
+1721144190 source:c:\users\lenovo\desktop\snakegameplus\snake_pair.cpp
 	<string>
 	<cstdlib>
 	<ctime>

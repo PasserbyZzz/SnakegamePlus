@@ -335,7 +335,7 @@ void Snake_great::setInvin()
 
     //�����޵�ģʽΪ�棬�����޵�CD���޵�ʱ��
     this->invincibility = true;
-    //this->dingsound->play();
+    this->dingsound->play();
     this->invin_present_CD = this->invin_whole_CD;
     this->invin_present_time = this->invin_whole_time;
 }
