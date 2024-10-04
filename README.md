@@ -1,4 +1,4 @@
-# SnakegamePlus🐍
+# SnakegamePlus 贪吃蛇进阶版🐍
 
 - [SnakegamePlus🐍](#snakegameplus)
   - [Brief Introduction](#brief-introduction)
