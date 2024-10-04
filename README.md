@@ -9,8 +9,9 @@
       - [Enjoy our game😊!](#enjoy-our-game)
 
 ## Brief Introduction
+
 An advanced version based on the fundamental edition of the snakegame.
-Completed by DZX, QJC and XKY in Summer, 2024. 
+Completed by DZX, QJC and XKY from 上海交通大学 in Summer, 2024. 
 Supported by PDCurses and SFML.
 Everything available on [Our GitHub](https://github.com/PasserbyZzz/SnakegamePlus).
 
