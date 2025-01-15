@@ -75,4 +75,4 @@ In this mode, The game is divided into two states: **Scoring State and Penalty S
 
 5.  Intention: This mode encourages players to consume high-point food in the Scoring State and low-point food in the Penalty State to ensure the snake's length changes and to try to earn more scores.
 
-#### Enjoy our game😊 and wish for your Star⭐!!
+## Enjoy our game😊 and wish for your Star⭐!!
